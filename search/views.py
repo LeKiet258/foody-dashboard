@@ -4,9 +4,11 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-def home(request):
-    return HttpResponse('Home Page')
-
-
 def search(request):
-    return HttpResponse('Search Page')
+    context = {}
+    return render(request, 'search/searchPage.html', context)
+
+
+def result(request):
+    context = {}
+    return render(request, 'search/searchResult.html', context)
