@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     path('search/', views.search, name='search'),
     path('search/result/', views.result, name='result'),
+    path('filter/', views.filter, name='filter'),
 ]

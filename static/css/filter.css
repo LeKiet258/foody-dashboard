@@ -1,0 +1,65 @@
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 700px;
+    height: 500px;
+    margin: 30px auto;
+    background-color: #f9f9f9;
+}
+
+.flex-column-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-self: flex-start;
+    margin-top: 60px;
+}
+
+.area,
+.food,
+.search,
+.delete {
+    padding: 10px 20px;
+    width: 120px;
+}
+
+.area {
+    margin-bottom: 10px;
+}
+
+.food {
+    margin-top: 10px;
+}
+
+.delete {
+    margin-left: 10px;
+}
+
+.search {
+    margin-right: 10px;
+}
+
+.filter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 300px;
+    width: 450px;
+    overflow-y: scroll;
+    background-color: #fff;
+}
+
+.flex-row-checkbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 400px;
+    width: 100%;
+}
+
+.form-check {
+    height: 30px;
+}

@@ -22,3 +22,9 @@ def result(request):
     #     return render(request, 'search/emptyPage.html', context)
 
     return render(request, 'search/searchResult.html', context)
+
+
+def filter(request):
+    context = {}
+
+    return render(request, 'search/filter.html', context)
