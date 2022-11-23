@@ -1,5 +1,5 @@
 """
-ASGI config for dashboard_web project.
+ASGI config for foody_dashboard project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dashboard_web.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'foody_dashboard.settings')
 
 application = get_asgi_application()
