@@ -31,7 +31,7 @@ def run():
 
     # Vendor.objects.all().delete()
 
-    with open("dashboard/data_merge.csv", encoding='utf-8') as file:
+    with open("data/data_merge.csv", encoding='utf-8') as file:
         reader = csv.reader(file)
         next(reader)  # Advance past the header
         db_vendors = {vendor.ReviewUrl: vendor for vendor in Vendor.objects.all()}
