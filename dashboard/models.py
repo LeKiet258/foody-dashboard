@@ -61,3 +61,4 @@ class Vendor(models.Model):
     max_usage_time = models.TextField(null=True)
     apply_order = models.TextField(null=True)
     all_reviews = models.TextField(null=True)
+    seeding_pct = models.TextField(null=True)
