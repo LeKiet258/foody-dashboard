@@ -62,3 +62,6 @@ class Vendor(models.Model):
     apply_order = models.TextField(null=True)
     all_reviews = models.TextField(null=True)
     seeding_pct = models.TextField(null=True)
+
+    def __str__(self) -> str:
+        return self.Name

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./style.css">
+
+    <title>Small Food</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <nav class="navbar navbar-light bg-beauty">
+                    <a class="navbar-brand">SmallFood</a>
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </nav>
+            </div>
+        </div>
+
+        <div class="bg-main">
+            <div class="table-info">
+                <div class="table-info-wrapper" style="text-align:center">
+                    <h3 class="table-info-text" >Dữ liệu quán ăn TP.HCM</h3>
+                </div>
+            </div>
+
+            <div>
+                <div class="main-filter">
+                    <h5 class="main-filter-config">
+                        <a href="">Bộ lọc</a>
+                        <i class="fa fa-filter"></i>
+                    </h5>
+                    <div class="main-filter-result">
+                        Quận 1
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table table-striped bg-light">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" style="width: 200px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 200px;text-overflow: ellipsis;">Cửa hàng</th>
+                                <th scope="col" style="width: 100px;max-width: 100px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Quận</th>
+                                <th scope="col" style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Ẩm thực</th>
+                                <th scope="col" style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Điểm</th>
+                                <th scope="col" style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Giá</th>
+                                <th scope="col" style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Giờ mở cửa</th>
+                                <th scope="col" style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Số Ảnh</th>
+                                <th scope="col" style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Số đánh giá</th>
+                                <th scope="col" style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Tỷ lệ QC</th>
+                                <th style="width: 140px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 140px;text-overflow: ellipsis;"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+   
+
+                <div style="max-height: 450px; overflow-y: auto;" class="table-container">
+                    <table class="table table-striped bg-light">
+                        <tbody>
+                            {% for i in page_obj %}
+                            <tr>
+                                <th style="width: 200px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 200px;text-overflow: ellipsis;">{{i.Name}}</th>
+                                <td style="width: 100px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 100px;text-overflow: ellipsis;text-align: center;">{{i.District}}</td>
+                                {% if i.cuisines == '' %}
+                                <td style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">Null</td>
+                                {% else %}
+                                <td style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">{{i.cuisines}}</td>
+                                {% endif %}
+                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis; padding-left: 20px;">{{i.AvgScore}}</td>
+                                {% if i.min_price == -1.0 %}
+                                <td style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
+                                    Null
+                                </td>
+                                {% else %}
+                                <td style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
+                                    {{i.min_price}} - {{i.max_price}}
+                                </td>
+                                {% endif %}
+                                {% if i.LastHourCustomer == '' %}
+                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">Null</td>
+                                {% else %}
+                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">{{i.LastHourCustomer}}</td>
+                                {% endif %}
+                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis; padding-left: 20px;">{{i.TotalPictures}}</td>
+                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">{{i.nBadReviews|add:i.nAverageReviews|add:i.nGoodReviews|add:i.nExcellentReviews}}</td>
+                                
+                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">{{i.seeding_pct}}</td>
+                                <td style="width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 120px;text-overflow: ellipsis;text-align: center;"><button class="btn btn-primary"  style="text-align: center;">Hiển thị</button></td>     
+                            </tr>
+                            {% endfor %}
+    
+                        </tbody>
+    
+                    </table>
+                </div>
+
+
+                <div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                            {% endif %}
+
+                            <span class="page-link" style="color: black;">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                            </span>
+                    
+                            {% if page_obj.has_next %}
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a> 
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
