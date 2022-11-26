@@ -27,9 +27,9 @@ def run():
        'min_charge', 'minimum_shiping_fee', 'is_foody_delivery', 'min_price',
        'max_price', 'min_order_amount', 'expired', 'promo_description',
        'promo_code', 'max_discount_value', 'max_usage_time', 'apply_order',
-       'Reviews']
+       'Reviews', 'seeding_pct']
 
-    # Vendor.objects.all().delete()
+    Vendor.objects.all().delete()
 
     with open("data/data_merge.csv", encoding='utf-8') as file:
         reader = csv.reader(file)
@@ -55,27 +55,7 @@ def run():
                 # for field in attributes:
                 #     print(f"{field}:", getattr(vendor, field))
                 vendor.save()
-                # shit
                 db_vendors[vendor.ReviewUrl] = vendor
             ix += 1
-
-    # with open('my_dashboard/pixar.csv') as file:
-    #     reader = csv.reader(file)
-    #     next(reader)  # Advance past the header
-
-    #     Film.objects.all().delete()
-    #     db_films = {film.title: film for film in Film.objects.all()}
-    #     # films = []
-
-    #     for row in reader:
-    #         film_title = row[0]
-    #         film_in_db = db_films.get(film_title)
-
-    #         if not film_in_db: # nếu film chưa có trong db thì mới add
-    #             print(row)
-    #             film = Film(title=row[0],
-    #                         year=row[2])
-    #             film.save()
-    #             db_films[film.title] = film
                 
                 
