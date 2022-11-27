@@ -1,0 +1,20 @@
+{% extends 'search/main.html' %}
+
+{% block content %}
+
+<div class="search-page bg-info">
+
+    <div class="title-search text-center">Nhập tên hoặc link cửa hàng</div>
+
+    <form class="main-search-input" action="" method="POST">
+        {% csrf_token %}
+
+        <input class="input-text form-control" type="text" value="" name="search" placeholder="Smallfoot...">
+
+        <button class="search-button btn btn-primary" type="submit">Search</button>
+    </form>
+
+
+</div>
+
+{% endblock content %}

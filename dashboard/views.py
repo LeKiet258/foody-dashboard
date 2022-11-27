@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import matplotlib.pyplot as plt
-import io
 from .models import *
 import urllib, base64
 import pandas as pd
 from matplotlib.ticker import MaxNLocator
 from plotly.offline import plot
 import plotly.express as px
+from django.core.paginator import Paginator
+import io
+import matplotlib.pyplot as plt
 
 data_hcm = pd.read_csv("data/data_merge.csv")
 menu = pd.read_csv("data/menu.csv")
@@ -15,7 +16,16 @@ menu_dish = pd.read_csv("data/menu_dish.csv")
 
 # Create your views here.
 def home(request):
-	return HttpResponse('home')
+    res = Vendor.objects.all()
+    paginator = Paginator(res, 25) # Show 25 res per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+	#review = Vendor.objects.get()
+
+    return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj})
+
 
 def dashboard(request):
 	global data_hcm, menu, menu_dish
@@ -35,7 +45,6 @@ def dashboard(request):
 	fig = px.pie(df, values='số người', names='loại review', title='Tỷ lệ từng loại review của quán', width=500, height=400)
 	fig.update_layout(title_x=0.5)
 	ret['review'] = plot(fig, output_type="div")
-	print(ret['review'])
 
 	### Seeding ###
 	vendor = data_hcm.loc[data_hcm['RestaurantId'] == res_id]
@@ -99,3 +108,4 @@ def dashboard(request):
 	ret['menu'] = uri
 
 	return render(request, 'dashboard.html', ret)
+    

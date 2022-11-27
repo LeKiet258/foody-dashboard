@@ -1,0 +1,35 @@
+{% extends 'search/main.html' %}
+
+{% block content %}
+
+<div class="result container mt-5 mb-5">
+    <h1 class="text-center text-secondary">Danh sách cửa hàng</h1>
+
+    <table class="table table-hover mt-5">
+        <thead>
+            <tr>
+                <th scope="col">Tên cửa hàng</th>
+                <th scope="col">Quận</th>
+                <th scope="col">Điểm</th>
+                <th scope="col">Số ảnh</th>
+                <th scope="col">Số đánh giá</th>
+                <th scope="col">Số lượt xem</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vendor in vendors %}
+            <tr>
+                <td>{{ vendor.Name }}</td>
+                <td>{{ vendor.District }}</td>
+                <td>{{ vendor.AvgScore }}</td>
+                <td>{{ vendor.TotalPictures }}</td>
+                <td>{{ vendor.TotalReviews }}</td>
+                <td>{{ vendor.TotalViews }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock content %}

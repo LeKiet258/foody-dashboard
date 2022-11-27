@@ -1,0 +1,7 @@
+.table {
+    padding: 20px;
+}
+
+.tr th {
+    background-color: red;
+}
