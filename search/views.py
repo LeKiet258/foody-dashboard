@@ -15,7 +15,7 @@ def search(request):
 
         finalVendors = []
         for vendor in vendors:
-            if search.lower() in vendor.Name:
+            if search.lower() in vendor.Name.lower():
                 finalVendors.append(vendor)
 
         context = {'vendors': finalVendors}
@@ -31,5 +31,13 @@ def search(request):
 
 def filter(request):
     context = {}
+    if request.method == 'POST':
+        districts = request.POST.getlist('districts')
+
+        filterData = Vendor.objects.filter(District__in=districts)
+
+        context = {'vendors': filterData}
+
+        return render(request, 'search/searchResult.html', context)
 
     return render(request, 'search/filter.html', context)

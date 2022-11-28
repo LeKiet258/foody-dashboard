@@ -19,8 +19,9 @@
             <div class="col-sm">
                 <nav class="navbar navbar-light bg-beauty">
                     <a class="navbar-brand">SmallFood</a>
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="form-inline" method="POST" action="search/">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="">
                         <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </nav>
@@ -37,12 +38,9 @@
             <div>
                 <div class="main-filter">
                     <h5 class="main-filter-config">
-                        <a href="">Bộ lọc</a>
+                        <a href="/filter">Bộ lọc</a>
                         <i class="fa fa-filter"></i>
                     </h5>
-                    <div class="main-filter-result">
-                        Quận 1
-                    </div>
                 </div>
 
                 <div class="table-container">
