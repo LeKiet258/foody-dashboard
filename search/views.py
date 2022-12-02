@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from dashboard.models import Vendor
 
+from underthesea import word_tokenize
+
 
 # Create your views here.
 
@@ -11,15 +13,17 @@ def search(request):
     if request.method == 'POST':
         search = request.POST.get('search')
 
+        searchPares = word_tokenize(search)
+
         vendors = Vendor.objects.all()
 
         finalVendors = []
-        for vendor in vendors:
-            if search.lower() in vendor.Name:
-                finalVendors.append(vendor)
+        for searchPare in searchPares:
+            for vendor in vendors:
+                if searchPare.lower() in vendor.Name.lower() and vendor not in finalVendors:
+                    finalVendors.append(vendor)
 
         context = {'vendors': finalVendors}
-        # sử lý sự kiên search
 
         if len(finalVendors) == 0:
             return render(request, 'search/emptyPage.html', context)
