@@ -94,7 +94,9 @@
                                 <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">{{i.nBadReviews|add:i.nAverageReviews|add:i.nGoodReviews|add:i.nExcellentReviews}}</td>
                                 
                                 <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">{{i.seeding_pct}}</td>
-                                <td style="width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 120px;text-overflow: ellipsis;text-align: center;"><button class="btn btn-primary"  style="text-align: center;">Hiển thị</button></td>     
+                                <form action="{% url 'dashboard' i.RestaurantId %}">
+                                    <td style="width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 120px;text-overflow: ellipsis;text-align: center;"><button class="btn btn-primary" style="text-align: center;">Hiển thị</button></td>     
+                                </form>
                             </tr>
                             {% endfor %}
     

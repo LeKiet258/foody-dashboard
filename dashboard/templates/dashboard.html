@@ -13,15 +13,14 @@
     <p><b>Địa chỉ:</b> ABC</p>
     <p><b>Hỗ trợ giao hàng:</b> ABC</p>
     <p><b>Phụ phí tối thiểu:</b> ABC</p>
-    <p><b>Thôngi tin thêm:</b> ABC</p>
+    <p><b>Thông tin thêm:</b> ABC</p>
     <p><b>Giờ mở cửa:</b> ABC</p>
 
     {% autoescape off %}
-        {{ review }}
-        {{ seeding }}
+        {{ review_seeding }}
     {% endautoescape %}
 
-    <img src="data:image/png;base64,{{ score }}" alt="" heght="700", width="1100">
+    <!-- <img src="data:image/png;base64,{{ score }}" alt="" heght="700", width="1100">
     <br>
 
     {% autoescape off %}
@@ -29,7 +28,7 @@
     {% endautoescape %}
 
     <br>
-    <img src="data:image/png;base64,{{ menu }}" alt="" heght="500", width="900">
+    <img src="data:image/png;base64,{{ menu }}" alt="" heght="500", width="900"> -->
 
 
   </body>

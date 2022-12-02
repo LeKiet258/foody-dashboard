@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     'dashboard',
     'search',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
