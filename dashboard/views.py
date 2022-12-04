@@ -10,21 +10,48 @@ from django.core.paginator import Paginator
 import io
 import matplotlib.pyplot as plt
 
-data_hcm = pd.read_csv("data/data_merge.csv")
-menu = pd.read_csv("data/menu.csv")
-menu_dish = pd.read_csv("data/menu_dish.csv")
+data_hcm = pd.read_csv("dashboard/data/data_merge.csv")
+menu = pd.read_csv("dashboard/data/menu.csv")
+menu_dish = pd.read_csv("dashboard/data/menu_dish.csv")
 
 # Create your views here.
 def home(request):
-    res = Vendor.objects.all()
-    paginator = Paginator(res, 25) # Show 25 res per page.
+	#global data_hcm
+	res = Vendor.objects.all()
+	for r in range(len(res)):
+		cui = ''
+		temp = res[r].cuisines[1:len(res[r].cuisines)-1].split(", ")
+		for t in temp:
+			t = t[1:len(t)-1].split('Món ')[-1]
+			cui += t + ', '
+		res[r].cuisines = cui[:-2]
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+		res[r].AvgScore = round(res[r].AvgScore,1)
+
+		res[r].min_price = int(res[r].min_price)
+		res[r].max_price = int(res[r].max_price)
+		res[r].TotalViews = int(res[r].TotalViews)
+		if res[r].seeding_pct == '':
+			res[r].seeding_pct = 0
+		elif res[r].seeding_pct == '1.00':
+			res[r].seeding_pct = 100
+		else:
+			if len(res[r].seeding_pct.split('.')[1]) == 1:
+				res[r].seeding_pct = int(res[r].seeding_pct.split('.')[1])*10
+			else:
+				res[r].seeding_pct = int(res[r].seeding_pct.split('.')[1])
+
+
+	
+
+	paginator = Paginator(res, 25) # Show 25 res per page.
+
+	page_number = request.GET.get('page')
+	page_obj = paginator.get_page(page_number)
 
 	#review = Vendor.objects.get()
 
-    return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj})
+	return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj})
 
 
 def dashboard(request):
@@ -108,4 +135,3 @@ def dashboard(request):
 	ret['menu'] = uri
 
 	return render(request, 'dashboard.html', ret)
-    
