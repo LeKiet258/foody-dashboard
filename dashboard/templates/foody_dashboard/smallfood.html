@@ -20,9 +20,10 @@
             <div class="col-sm">
                 <nav class="navbar navbar-light bg-beauty">
                     <a class="navbar-brand">SmallFood</a>
-                    <form class="form-inline" method="POST" action="search/">
+                    <form class="form-inline" method="POST" action="/">
                         {% csrf_token %}
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                            name="search" value="">
                         <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </nav>
@@ -32,7 +33,7 @@
         <div class="bg-main">
             <div class="table-info">
                 <div class="table-info-wrapper" style="text-align:center">
-                    <h3 class="table-info-text" >Dữ liệu quán ăn TP.HCM</h3>
+                    <h3 class="table-info-text">Dữ liệu quán ăn TP.HCM</h3>
                 </div>
             </div>
 
@@ -48,59 +49,101 @@
                     <table class="table table-striped bg-light">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col" style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;">Cửa hàng</th>
-                                <th scope="col" style="width: 180px;max-width: 180px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Quận</th>
-                                <th scope="col" style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Ẩm thực</th>
-                                <th scope="col" style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Điểm</th>
-                                <th scope="col" style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Giá</th>
-                                <th scope="col" style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Giờ mở cửa</th>
-                                <th scope="col" style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Số lượt xem</th>
-                                <th scope="col" style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Số đánh giá</th>
-                                <th scope="col" style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">Tỷ lệ QC</th>
+                                <th scope="col"
+                                    style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;">
+                                    Cửa hàng</th>
+                                <th scope="col"
+                                    style="width: 180px;max-width: 180px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                    Quận</th>
+                                <th scope="col"
+                                    style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                    Ẩm thực</th>
+                                <th scope="col"
+                                    style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                    Điểm</th>
+                                <th scope="col"
+                                    style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                    Giá</th>
+                                <th scope="col"
+                                    style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                    Giờ mở cửa</th>
+                                <th scope="col"
+                                    style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                    Số lượt xem</th>
+                                <th scope="col"
+                                    style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                    Số đánh giá</th>
+                                <th scope="col"
+                                    style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                    Tỷ lệ QC</th>
                                 <th style="width: 2px;max-width: 2px;padding-left: 9px;padding-right: 9px;"></th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-   
+
 
                 <div style="max-height: 450px; overflow-y: auto;" class="table-container">
                     <table class="table bg-light">
                         <tbody>
                             {% for i in page_obj %}
-                            <tr onmouseover="this.style.backgroundColor='#8099c6'" onmouseout="this.style.backgroundColor=''">
-                                <th style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;"><a href="/filter">{{i.Name}}</a></th>
-                                <td style="width: 180px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 180px;text-overflow: ellipsis;text-align: center;">{{i.District}}</td>
+                            <tr onmouseover="this.style.backgroundColor='#8099c6'"
+                                onmouseout="this.style.backgroundColor=''">
+                                <th
+                                    style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;">
+                                    <a href="/filter">{{i.Name}}</a></th>
+                                <td
+                                    style="width: 180px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 180px;text-overflow: ellipsis;text-align: center;">
+                                    {{i.District}}</td>
                                 {% if i.cuisines == '' %}
-                                <td style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">---</td>
+                                <td
+                                    style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
+                                    ---</td>
                                 {% else %}
-                                <td style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">{{i.cuisines}}</td>
+                                <td
+                                    style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
+                                    {{i.cuisines}}</td>
                                 {% endif %}
-                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis; padding-left: 20px;padding-left: 12px;text-align: center">{{i.AvgScore}}</td>
+                                <td
+                                    style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis; padding-left: 20px;padding-left: 12px;text-align: center">
+                                    {{i.AvgScore}}</td>
                                 {% if i.max_price == -1.0 or i.max_price == 0 %}
-                                <td style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
+                                <td
+                                    style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
                                     ---
                                 </td>
                                 {% else %}
-                                <td style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
+                                <td
+                                    style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
                                     {{i.min_price}} - {{i.max_price}}
                                 </td>
                                 {% endif %}
                                 {% if i.LastHourCustomer == '' %}
-                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">---</td>
+                                <td
+                                    style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">
+                                    ---</td>
                                 {% else %}
-                                <td style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis;text-align: center;">{{i.LastHourCustomer}}</td>
+                                <td
+                                    style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis;text-align: center;">
+                                    {{i.LastHourCustomer}}</td>
                                 {% endif %}
-                                <td style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis; padding-left: 20px;;text-align: center">{{i.TotalViews}}</td>
-                                <td style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis;text-align: center;">{{i.nBadReviews|add:i.nAverageReviews|add:i.nGoodReviews|add:i.nExcellentReviews}}</td>
-                                
-                                <td style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">{{i.seeding_pct}}%</td>
+                                <td
+                                    style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis; padding-left: 20px;;text-align: center">
+                                    {{i.TotalViews}}</td>
+                                <td
+                                    style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis;text-align: center;">
+                                    {{i.nBadReviews|add:i.nAverageReviews|add:i.nGoodReviews|add:i.nExcellentReviews}}
+                                </td>
+
+                                <td
+                                    style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">
+                                    {{i.seeding_pct}}%</td>
                                 <!-- <td style="width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 120px;text-overflow: ellipsis;text-align: center;"><button class="btn btn-primary"  style="text-align: center;">Hiển thị</button></td>      -->
                             </tr>
                             {% endfor %}
-    
+
                         </tbody>
-    
+
                     </table>
                 </div>
 
@@ -109,15 +152,15 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center" style="background-color: #e38b62;">
                             {% if page_obj.has_previous %}
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
                             {% endif %}
 
                             <span class="page-link" style="color: black;">
                                 Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                             </span>
-                    
+
                             {% if page_obj.has_next %}
-                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a> 
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
                             {% endif %}
                         </ul>
                     </nav>
