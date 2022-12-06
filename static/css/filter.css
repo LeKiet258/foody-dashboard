@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 450px;
+    width: 600px;
     height: 400px;
     margin: 30px auto;
     background-color: #f9f9f9;
@@ -46,7 +46,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 300px;
-    width: 300px;
+    width: 450px;
     overflow-y: scroll;
     background-color: #fff;
 }
@@ -62,4 +62,12 @@
 
 .form-check {
     height: 30px;
+}
+
+.districts {
+    display: none;
+}
+
+.cuisines {
+    display: none;
 }
