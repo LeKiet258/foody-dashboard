@@ -58,7 +58,7 @@ def dashboard(request, res_id):
 	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
 	parsed_html.find('div')['class'] = 'center'
 	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
-	ret['user_score'] = parsed_html #plot(fig, output_type="div") #
+	ret['user_score'] = plot(fig, output_type="div") #parsed_html # #
 
 	return render(request, 'dashboard.html', ret)
     
