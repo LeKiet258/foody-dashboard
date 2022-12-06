@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from .viz import *
 from bs4 import BeautifulSoup
 import pdb
+import ast
 import re
 
 data_hcm = pd.read_csv("data/data_merge.csv")
@@ -34,13 +35,36 @@ def dashboard(request, res_id):
 	ret = {}
 	# res_id = 90018
 	vendor = data_hcm.loc[data_hcm['RestaurantId'] == res_id]
+
+	coupons = []
+
+	for i in range(len(ast.literal_eval(vendor['expired'].item()))):
+		coupons.append({'expired': ast.literal_eval(vendor['expired'].item())[i], 
+		'promo_description': ast.literal_eval(vendor['promo_description'].item())[i], 
+		'promo_code': ast.literal_eval(vendor['promo_code'].item())[i], 
+		'discount': "{:,}".format(int(ast.literal_eval(vendor['max_discount_value'].item())[i]))})
+
+	ret['page'] = vendor['ReviewUrl'].item()
+	ret['name'] = vendor['Name'].item()
+	ret['address'] = vendor['Address'].item()
+	ret['isdelivery'] = vendor['IsDelivery'].item()
+	ret['mincharge'] = '{:,}'.format(int(vendor['min_charge'].item()))
+	ret['extrainfo'] = vendor['ExtraInfo'].item()
+	ret['opentime'] = vendor['OpenTime'].item()
+	ret['totalpics'] = vendor['TotalPictures'].item()
+	ret['totalviews'] = vendor['TotalViews'].item()
+	ret['totalsaves'] = vendor['TotalSaves'].item()
+	ret['capacity'] = vendor['Capacity'].item()
+	ret['servicefee'] = "{:,}".format(int(vendor['service_fee'].item()))
+	ret['minshipfee'] = "{:,}".format(int(vendor['minimun_shiping_fee'].item()))
+	ret['coupons'] = coupons
 	
 	# review & seeding pie charts
 	fig = review_seeding_ratio(vendor)
 	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
 	parsed_html.find('div')['class'] = 'center'
 	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
-	ret['review_seeding'] = parsed_html
+	ret['review_seeding'] = plot(fig, output_type="div")
 
 	# menu bar-range chart
 	menu_vendor = menu[menu['RestaurantID'] == res_id]
@@ -51,7 +75,7 @@ def dashboard(request, res_id):
 	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
 	parsed_html.find('div')['class'] = 'center'
 	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
-	ret['menu'] = parsed_html #plot(fig, output_type="div")
+	ret['menu'] = plot(fig, output_type="div") #plot(fig, output_type="div")
 
 	### user score
 	fig = user_score(vendor) # -1: ko cào dc review
@@ -59,6 +83,10 @@ def dashboard(request, res_id):
 	parsed_html.find('div')['class'] = 'center'
 	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
 	ret['user_score'] = plot(fig, output_type="div") #parsed_html # #
+
+	# component score
+	fig = component_score(vendor)
+	ret['component_score'] = plot(fig, output_type="div")
 
 	return render(request, 'dashboard.html', ret)
     

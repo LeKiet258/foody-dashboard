@@ -5,6 +5,28 @@ import pandas as pd
 import pdb
 from .utils import *
 
+def component_score(vendor):
+    df = vendor[['LocationScore', 'PriceScore', 'QualityScore', 'ServingScore', 'SpaceScore']].T.rename(index={
+        'LocationScore': 'Điểm vị trí', 'PriceScore': 'Điểm giá', 'QualityScore': 'Điểm chất lượng',
+        'ServingScore': 'Điểm phục vụ', 'SpaceScore': 'Điểm không gian'
+    }).reset_index()
+    df.rename(columns={df.columns[1]: 'score'}, inplace=True)
+
+    fig = px.line_polar(df, r='score', theta='index', line_close=True)
+    fig.update_traces(hovertemplate="%{r}")
+    fig.update_layout(
+        width=800,
+        title = {
+            'text': "<b>Điểm thành phần</b>",
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'font': {'size': 23, 'family': 'Arial'}
+        },
+        margin=dict(t=100) # nới space between title & chart
+    )
+    return fig
+
 def user_score(vendor):
     review = vendor['Reviews'].to_list()
     if pd.isnull(review[0]):
@@ -26,12 +48,13 @@ def user_score(vendor):
     user_score_df['index'] = user_score_df['index'].astype(str)
 
     fig = px.bar(user_score_df, x="index", y="freq", text_auto=True)
-    custom_width = 700
+    custom_width = 800
     if len(user_score.index) > 10:
         custom_width = 1200
 
     fig.update_layout(
         width=custom_width, # default 700
+        paper_bgcolor='#FFFFFF',
         xaxis=dict(
             type='category',
             title=dict(text="Điểm")
@@ -85,7 +108,7 @@ def menu_bar(dish_price_df):
     fig.update_layout(
         width=800, # size of chart
         margin=dict(t=90, b=10), # size of figure
-        paper_bgcolor='#FFBDD1',
+        paper_bgcolor='#FFFFFF',
         title = {
             'text': "<b>Thực đơn</b>",
             'y':0.9,
@@ -161,7 +184,7 @@ def review_seeding_ratio(vendor):
     for i, lbl in enumerate(df_seeding['Loại']):
         fig.add_annotation({
             'x': x_base, 'y': y_base,
-            'text': f"<b>▉</b> <span style='color:black'>{lbl}: {int(df_seeding.iloc[i,1] * df['số người'].sum())}/{int(df['số người'].sum())} đánh giá</span>", 'font': {'color': pie_right_colors[i], 'size':12}, #▇ ▉
+            'text': f"<b>▉</b> <span style='color:black'>{lbl}: {int(hoverinfo_ls[i])}/{int(df['số người'].sum())} đánh giá</span>", 'font': {'color': pie_right_colors[i], 'size':12}, #▇ ▉
             'xanchor': 'left', 'yanchor': 'middle', 'showarrow': False,
         })
         y_base -= 0.05
@@ -170,6 +193,7 @@ def review_seeding_ratio(vendor):
         showlegend=False, 
         width=800, 
         height=510, 
-        paper_bgcolor='#FFBDD1'
+        paper_bgcolor='#B9B5B4',
+        uniformtext_minsize=10, uniformtext_mode='hide',
     ) 
     return fig
