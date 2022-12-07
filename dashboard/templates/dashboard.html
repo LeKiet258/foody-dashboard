@@ -1,166 +1,16 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap">
+
     <style>
-        p {
-          margin: 5px;
-          inline-size: 500px;
-          overflow-wrap: break-word;
-        }
-
-        body {
-          font-family: Roboto, Helvetica, Arial, sans-serif;
-          font-size: 15 px;
-        }
-      
-        .coupon__tags {
-          font-family: Roboto, Helvetica, Arial, sans-serif;
-          font-size: 14px;
-          line-height: 1.15;
-          text-size-adjust: 100%;
-          box-sizing: border-box;
-          display: inline;
-          padding: 0px 4px 0px 0px;
-          flex-wrap: wrap;
-        }
-
-        .coupon__tag {
-          font-family: Roboto, Helvetica, Arial, sans-serif;
-          text-size-adjust: 100%;
-          box-sizing: border-box;
-          cursor: pointer;
-          padding: 6px 12px;
-          border: 1px solid rgb(13, 92, 182);
-          border-radius: 4px;
-          font-size: 13px;
-          font-weight: 500;
-          line-height: 20px;
-          color: rgb(13, 92, 182);
-          position: relative;
-          margin: 8px 12px 3px 3px;
-        }
-
-        .coupon__tag::after {
-          right: -6px;
-          transform: rotate(135deg);
-        }
-
-        .coupon__tag::before {
-          left: -6px;
-          transform: rotate(-45deg);
-        }
-
-        ::before,
-        ::after {
-          box-sizing: border-box;
-        }
-
-        .coupon__tag::before,
-        .coupon__tag::after {
-          content: "";
-          width: 10px;
-          height: 10px;
-          background-color: rgb(255, 255, 255);
-          border-width: 1px;
-          border-style: solid;
-          border-color: transparent rgb(13, 92, 182) rgb(13, 92, 182) transparent;
-          border-image: initial;
-          position: absolute;
-          top: 50%;
-          margin-top: -5px;
-          border-radius: 50%;
-        }
-
-        /* The Modal (background) */
-        .modal {
-          display: none;
-          /* Hidden by default */
-          position: fixed;
-          /* Stay in place */
-          z-index: 1;
-          /* Sit on top */
-          padding-top: 100px;
-          /* Location of the box */
-          left: 0;
-          top: 0;
-          width: 100%;
-          /* Full width */
-          height: 100%;
-          /* Full height */
-          overflow: auto;
-          /* Enable scroll if needed */
-          background-color: rgb(0, 0, 0);
-          /* Fallback color */
-          background-color: rgba(0, 0, 0, 0.4);
-          /* Black w/ opacity */
-        }
-
-        /* Modal Content */
-        .modal-content {
-          background-color: #fefefe;
-          margin: auto;
-          padding: 20px;
-          border: 1px solid #888;
-          width: 30%;
-          border-radius: 20px;
-        }
-
-        /* The Close Button */
-        .close {
-          color: #aaaaaa;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-          color: #000;
-          text-decoration: none;
-          cursor: pointer;
-        }
-
-        .coupon {
-          border: 5px dotted #bbb;
-          /* Dotted border */
-          width: 80%;
-          border-radius: 15px;
-          /* Rounded border */
-          margin: 0 auto;
-          /* Center the coupon */
-          max-width: 600px;
-        }
-
-        .container {
-          padding: 2px 16px;
-          background-color: #f1f1f1;
-        }
-
-        .promo {
-          background: #ccc;
-          padding: 3px;
-        }
-
-      .expire {
-        color: red;
-      }
-
-      .center2 {
-        margin: 10px 50px 20px 40px; /* top right bot left=fixed */
-        width: 60%;
-        border: none !important;
-        padding: 10px;
-      }
-
-      .center1 {
-        margin: auto;
-        width: 60%;
-        border: none !important;
-        padding: 10px;
+      div.relative {
+        position: relative;
+        left: 40px;
       }
     </style>
   </head>
@@ -302,11 +152,59 @@
 
     {% autoescape off %}
       {{ menu }}
-      {{ review_seeding }}
-      {{ user_score }}
-      {{ component_score }}
     {% endautoescape %}
 
+    <div class="grid-container">
+      {% autoescape off %}
+        {{ review_seeding }}
+        {{ component_score }}
+      {% endautoescape %}
+    </div>
+    
+    <br>
+
+    {% autoescape off %}
+      {{ user_score }}
+    {% endautoescape %}
+
+
+    <!-- <br>
+    <div class="table-container">
+      <table class="table table-striped bg-light">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"
+                style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;">
+                Cửa hàng</th>
+            <th scope="col"
+                style="width: 180px;max-width: 180px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                Quận</th>
+            <th scope="col"
+                style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                Ẩm thực</th>
+            <th scope="col"
+                style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                Điểm</th>
+            <th scope="col"
+                style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                Giá</th>
+            <th scope="col"
+                style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                Giờ mở cửa</th>
+            <th scope="col"
+                style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                Số lượt xem</th>
+            <th scope="col"
+                style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                Số đánh giá</th>
+            <th scope="col"
+                style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                Tỷ lệ QC</th>
+            <th style="width: 2px;max-width: 2px;padding-left: 9px;padding-right: 9px;"></th>
+          </tr>
+        </thead>
+      </table>
+    </div> -->
 
   </body>
 </html>

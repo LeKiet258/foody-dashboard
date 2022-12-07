@@ -113,9 +113,16 @@ def dashboard(request, res_id):
 	# review & seeding pie charts
 	fig = review_seeding_ratio(vendor)
 	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
-	parsed_html.find('div')['class'] = 'center'
+	parsed_html.find('div')['class'] = 'grid-child purple'
 	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
 	ret['review_seeding'] = plot(fig, output_type="div")
+
+	# component score
+	fig = component_score(vendor)
+	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
+	parsed_html.find('div')['class'] = 'grid-child green'
+	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
+	ret['component_score'] = parsed_html
 
 	# menu bar-range chart
 	menu_vendor = menu[menu['RestaurantID'] == res_id]
@@ -124,9 +131,9 @@ def dashboard(request, res_id):
 	df = df.merge(menu_vendor.drop(columns=['RestaurantID']), on='dish_type_id', how='left').drop(columns='dish_type_id')
 	fig = menu_bar(df)
 	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
-	parsed_html.find('div')['class'] = 'center'
+	parsed_html.find('div')['class'] = 'relative'
 	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
-	ret['menu'] = plot(fig, output_type="div") 
+	ret['menu'] = parsed_html
 
 	### user score
 	fig = user_score_bar(vendor) # -1: ko cào dc review
@@ -134,14 +141,8 @@ def dashboard(request, res_id):
 	parsed_html.find('div')['class'] = 'center2'
 	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
 	ret['user_score'] = parsed_html
-	##
-	screen_width = 1366
-	fig_width = 800	  
-	ret['start_px'] = 2139.213 / 2 # px/2
 
-	# component score
-	fig = component_score(vendor)
-	ret['component_score'] = plot(fig, output_type="div")
+	
 
 	
 

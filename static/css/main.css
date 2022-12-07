@@ -17,3 +17,167 @@ p {
     inline-size: 500px;
     overflow-wrap: break-word;
   }
+
+body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15 px;
+}
+
+.coupon__tags {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.15;
+    text-size-adjust: 100%;
+    box-sizing: border-box;
+    display: inline;
+    padding: 0px 4px 0px 0px;
+    flex-wrap: wrap;
+}
+
+.coupon__tag {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    text-size-adjust: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid rgb(13, 92, 182);
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    color: rgb(13, 92, 182);
+    position: relative;
+    margin: 8px 12px 3px 3px;
+}
+
+.coupon__tag::after {
+    right: -6px;
+    transform: rotate(135deg);
+}
+
+.coupon__tag::before {
+    left: -6px;
+    transform: rotate(-45deg);
+}
+
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+.coupon__tag::before,
+.coupon__tag::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent rgb(13, 92, 182) rgb(13, 92, 182) transparent;
+    border-image: initial;
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    border-radius: 50%;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 20px;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.coupon {
+    border: 5px dotted #bbb;
+    /* Dotted border */
+    width: 80%;
+    border-radius: 15px;
+    /* Rounded border */
+    margin: 0 auto;
+    /* Center the coupon */
+    max-width: 600px;
+}
+
+.container {
+    padding: 2px 16px;
+    background-color: #f1f1f1;
+}
+
+.promo {
+    background: #ccc;
+    padding: 3px;
+}
+
+.expire {
+    color: red;
+}
+
+.center2 {
+    margin: 10px 50px 20px 30px; /* top right bot left=fixed */
+    width: 60%;
+    border: none !important;
+    /* padding: 10px; */
+}
+
+.center1 {
+    margin: auto;
+    width: 60%;
+    border: none !important;
+    padding: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    margin: 10px 50px 20px 40px;
+}
+
+.myLeft {
+    position: relative;
+    left: 30px;
+    /* border: 3px solid #73AD21; */
+  }

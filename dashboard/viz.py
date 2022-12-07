@@ -3,6 +3,7 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import pandas as pd
 import pdb
+import numpy as np
 from .utils import *
 
 def component_score(vendor):
@@ -15,7 +16,7 @@ def component_score(vendor):
     fig = px.line_polar(df, r='score', theta='index', line_close=True)
     fig.update_traces(hovertemplate="%{r}")
     fig.update_layout(
-        width=800,
+        width=500,
         title = {
             'text': "<b>Điểm thành phần</b>",
             'x':0.5,
@@ -117,8 +118,8 @@ def menu_bar(dish_price_df):
         hovertemplate='%{customdata}<extra></extra>',
     ))
     fig.update_layout(
-        width=800, # size of chart
-        margin=dict(t=90, b=10), # size of figure
+        width=850, # size of chart
+        margin=dict(t=90, b=10, l=5, r=20), # size of figure
         paper_bgcolor='#FFFFFF',
         title = {
             'text': "<b>Thực đơn</b>",
@@ -135,7 +136,7 @@ def menu_bar(dish_price_df):
 
 def review_seeding_ratio(vendor):
     # prepare data
-    fig = make_subplots(rows=1, cols=2, subplot_titles=['<b>Tỷ lệ từng loại đánh giá của quán</b>', '<b>Tỷ lệ quảng cáo</b>'], 
+    fig = make_subplots(rows=1, cols=2, subplot_titles=['<b>Tỷ lệ từng loại đánh giá<br>của quán</b>', '<b>Tỷ lệ quảng cáo</b>'], 
                     specs=[[{"type": "pie"}, {"type": "pie"}]])
     pie_left_colors = ['rgb(244,165,130)', 'rgb(214,96,77)', 'rgb(178,24,43)', 'rgb(103,0,31)']
     pie_right_colors = ['rgb(33,102,172)', 'rgb(146,197,222)']
@@ -149,6 +150,8 @@ def review_seeding_ratio(vendor):
                     'nBadReviews': 'Tệ'}, inplace=True)
     df = df.reset_index()
     df.rename(columns={"index": "loại review", df.columns[1]: "số người"}, inplace=True)
+    df['pct'] = (round(df['số người'] / df['số người'].sum(), 2) * 100)
+    df['pct'] = df['pct'].apply(lambda val: np.nan if val==0 else str(int(val))+'%')
 
     fig.add_trace(go.Pie(
             labels=df['loại review'], 
@@ -156,7 +159,9 @@ def review_seeding_ratio(vendor):
             hovertemplate = "Đánh giá <b>%{label}</b><extra></extra>" + 
                             "<br>%{value} đánh giá", 
             sort=False, # plotly ko resort theo ý nó dc
-            marker=dict(colors=pie_left_colors) # src: px.colors.sequential.RdBu
+            marker=dict(colors=pie_left_colors), # src: px.colors.sequential.RdBu
+            text = df['pct'],
+            textinfo = 'text'
         ),
         row=1, col=1
     )
@@ -181,14 +186,14 @@ def review_seeding_ratio(vendor):
     )
 
     # đặt annotation cho pie trái
-    x_base, y_base = 0.06, 0 #0.05, 0.15
+    x_base, y_base = 0.04, 0 #0.05, 0.15
     for i, lbl in enumerate(df['loại review']):
         fig.add_annotation({
             'x': x_base, 'y': y_base,
             'text': f"<b>▉</b> <span style='color:black'>{lbl}: {int(df.iloc[i,1])} đánh giá</span>", 'font': {'color': pie_left_colors[i], 'size':12}, #▇ ▉
             'xanchor': 'left', 'yanchor': 'middle', 'showarrow': False,
         })
-        y_base -= 0.05
+        y_base -= 0.06
 
     # đặt annotation cho pie fải
     x_base, y_base = 0.62, 0 #0.05, 0.15
@@ -198,13 +203,13 @@ def review_seeding_ratio(vendor):
             'text': f"<b>▉</b> <span style='color:black'>{lbl}: {int(hoverinfo_ls[i])}/{int(df['số người'].sum())} đánh giá</span>", 'font': {'color': pie_right_colors[i], 'size':12}, #▇ ▉
             'xanchor': 'left', 'yanchor': 'middle', 'showarrow': False,
         })
-        y_base -= 0.05
+        y_base -= 0.06
 
     fig.update_layout(
         showlegend=False, 
-        width=800, 
-        height=510, 
-        paper_bgcolor='#B9B5B4',
+        width=690, 
+        height=450, 
+        # paper_bgcolor='#B9B5B4',
         uniformtext_minsize=10, uniformtext_mode='hide',
     ) 
     return fig
