@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #173048;
+}
+
+.main-filter-config{
+  background-color: #40a454;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 0rem;
+  color: #212529;
+}
+.table .thead-dark th {
+  color: rgb(162, 152, 152);
+  background-color: #3472b0;
+  border-color: #454d55;
+}
+.table-info, .table-info>td, .table-info>th {
+  background-color: #ff7070;
+}
+.bg-beauty {
+  /* background-color: rgb(103, 179, 153); */
+}
+
+.bg-main {
+  /* background-color: rgb(103, 179, 153); */
+  min-height: 92vh;
+}
+
+.table-info {
+  height: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-info-wrapper {
+  margin: 18px;
+  padding: 4px 18px;
+  /* background-color: rgb(224, 179, 65); */
+  border-radius: 20px;
+}
+
+.table-info-text {
+  
+}
+
+.main-filter {
+  display: flex;
+  align-items: center;
+}
+
+.main-filter-config {
+  margin: 20px;
+  padding: 5px 10px;
+  /* background-color: rgb(155, 129, 95); */
+  text-align: center;
+  border-radius: 3px;
+}
+
+.main-filter-result {
+  padding: 2px 20px;
+  /* background-color: rgb(42, 213, 39); */
+  border-radius: 10px;
+}
+.table .thead-dark th {
+  color: #1d2124;
+  background-color: #e38b62;
+  border-color: #454d55;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #0b55a3;
+  background-color: #ffd0ae;
+  border: 1px solid #dee2e6;
+}
+
+a {
+  color: #06080a;
+  text-decoration: none;
+  background-color: transparent;
+}
+.navbar-light .navbar-brand {
+  color: #f8f9fa;
+  font-size: 25px;
+}
+

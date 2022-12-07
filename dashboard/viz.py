@@ -27,7 +27,7 @@ def component_score(vendor):
     )
     return fig
 
-def user_score(vendor):
+def user_score_bar(vendor):
     review = vendor['Reviews'].to_list()
     if pd.isnull(review[0]):
         return -1
@@ -44,13 +44,24 @@ def user_score(vendor):
     review_df = review_df[review_df['User_score'] != 0] # loại các review có đánh giá 0.0 vì đa fần là qc
     user_score = review_df['User_score'].value_counts().sort_index()
     
-    user_score_df = pd.DataFrame.from_dict({'freq': user_score}).reset_index()
+    user_score_ix = [int(i) for i in user_score.index]
+    visible_scores = user_score
+    if len(user_score_ix) < 10:
+        ten_scores = [i for i in range(11)]
+        visible_score = set(ten_scores).difference(set(user_score_ix))
+        visible_score_dict = {}
+        for s in visible_score:
+            visible_score_dict[s] = 0
+
+        visible_scores = pd.concat([user_score, pd.Series(data=visible_score_dict)]).sort_index()
+
+    user_score_df = pd.DataFrame.from_dict({'freq': visible_scores}).reset_index()
     user_score_df['index'] = user_score_df['index'].astype(str)
 
     fig = px.bar(user_score_df, x="index", y="freq", text_auto=True)
-    custom_width = 800
-    if len(user_score.index) > 10:
-        custom_width = 1200
+    custom_width = 1230 #800
+    # if len(user_score.index) > 10:
+    #     custom_width = 1230
 
     fig.update_layout(
         width=custom_width, # default 700

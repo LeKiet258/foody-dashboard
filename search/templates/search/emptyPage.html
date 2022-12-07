@@ -1,9 +1,67 @@
-{% extends 'search/main.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
 
-<div class="empty-page mt-5">
-    <h1 class="text-center text-secondary">Không tìm thấy cửa hàng nào!</h1>
-</div>
+    <title>Small Food</title>
+</head>
 
-{% endblock content %}
+<body>
+    <div class="container" style="max-width: 1450px;">
+        <div class="row">
+            <div class="col-sm">
+                <nav class="navbar navbar-light bg-beauty">
+                    <a class="navbar-brand">SmallFood</a>
+                    <form class="form-inline" method="POST" action="/">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                            name="search" value="">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </nav>
+            </div>
+        </div>
+
+        <div class="bg-main">
+            <div class="table-info">
+                <div class="table-info-wrapper" style="text-align:center">
+                    <h3 class="table-info-text">Dữ liệu quán ăn TP.HCM</h3>
+                </div>
+            </div>
+
+            <div>
+                <div class="main-filter">
+                    <h5 class="main-filter-config">
+                        <a href="/filter">Bộ lọc</a>
+                        <i class="fa fa-filter"></i>
+                    </h5>
+                </div>
+
+
+                <div style="max-height: 450px; overflow-y: auto;" class="table-container">
+                    <h1 class="text-center text-white">Không tìm thấy cửa hàng nào!</h1>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

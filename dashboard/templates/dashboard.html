@@ -5,7 +5,6 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
-    <!-- <title>matplot</title> -->
     <style>
         p {
           margin: 5px;
@@ -150,21 +149,24 @@
         color: red;
       }
 
-      .center {
-        /* display: block; */
-        /* margin-left: 30px;
-        margin-right: auto; */
+      .center2 {
+        margin: 10px 50px 20px 40px; /* top right bot left=fixed */
+        width: 60%;
+        border: none !important;
+        padding: 10px;
+      }
+
+      .center1 {
         margin: auto;
         width: 60%;
         border: none !important;
         padding: 10px;
       }
-      </style>
+    </style>
   </head>
 
   <body style="background-color:rgb(238, 227, 227);">
-    <div class="center">
-      <h1>Thông tin quán</h1>
+    <div class="center1">
       <div>
         <h2><a href="https://www.foody.vn/{{ page }}">{{ name }} </a></h2>
         <table>
@@ -258,44 +260,45 @@
             </td>
         </table>
       </div>
+    </div>
   
-      <script>
-        // Get the button that opens the modal
-        var btn = document.querySelectorAll(".coupon__tag");
-  
-        // All page modals
-        var modals = document.querySelectorAll('.modal');
-  
-        // Get the <span> element that closes the modal
-        var spans = document.getElementsByClassName("close");
-  
-        // When the user clicks the button, open the modal
-        for (var i = 0; i < btn.length; i++) {
-          btn[i].onclick = function (e) {
-            e.preventDefault();
-            modal = document.querySelector(e.target.getAttribute("href"));
-            modal.style.display = "block";
+    <script>
+      // Get the button that opens the modal
+      var btn = document.querySelectorAll(".coupon__tag");
+
+      // All page modals
+      var modals = document.querySelectorAll('.modal');
+
+      // Get the <span> element that closes the modal
+      var spans = document.getElementsByClassName("close");
+
+      // When the user clicks the button, open the modal
+      for (var i = 0; i < btn.length; i++) {
+        btn[i].onclick = function (e) {
+          e.preventDefault();
+          modal = document.querySelector(e.target.getAttribute("href"));
+          modal.style.display = "block";
+        }
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      for (var i = 0; i < spans.length; i++) {
+        spans[i].onclick = function () {
+          for (var index in modals) {
+            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
           }
         }
-  
-        // When the user clicks on <span> (x), close the modal
-        for (var i = 0; i < spans.length; i++) {
-          spans[i].onclick = function () {
-            for (var index in modals) {
-              if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
-            }
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target.classList.contains('modal')) {
+          for (var index in modals) {
+            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
           }
         }
-  
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-          if (event.target.classList.contains('modal')) {
-            for (var index in modals) {
-              if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
-            }
-          }
-        }
-      </script>
+      }
+    </script>
 
     {% autoescape off %}
       {{ menu }}

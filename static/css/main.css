@@ -12,13 +12,8 @@
     font: 32px Arial, sans-serif;
 }
 
-.left, .right {
-    display: inline-block;
+p {
+    margin: 5px;
+    inline-size: 500px;
+    overflow-wrap: break-word;
   }
-
-/* .center {
-    margin: auto;
-    width: 60%;
-    border: 3px solid #73AD21;
-    padding: 10px;
-} */
