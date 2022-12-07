@@ -54,6 +54,7 @@ body {
 .main-filter {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .main-filter-form {
@@ -104,6 +105,7 @@ a, a:hover {
 .navbar-light .navbar-brand {
   color: #f8f9fa;
   font-size: 25px;
+  cursor: pointer;
 }
 
 .show {
@@ -112,4 +114,18 @@ a, a:hover {
 
 .grid {
   display: grid;
+}
+
+.main-compare-config {
+  margin: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #F2F7A1;
+}
+
+.btn-compare {
+  border: none;
+  background-color: inherit;
 }

@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-sm">
                 <nav class="navbar navbar-light bg-beauty">
-                    <a class="navbar-brand">SmallFood</a>
+                    <a class="navbar-brand" href="/" >SmallFood</a>
                     <form class="form-inline" method="POST" action="/">
                         {% csrf_token %}
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
@@ -83,6 +83,9 @@
 
                         </form>
                     </div>
+                    <h5 class="main-compare-config">
+                        <a href="compare">So sánh</a>
+                    </h5>
                 </div>
                 <div class="table-container">
                     <table class="table table-striped bg-light">
