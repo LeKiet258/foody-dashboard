@@ -8,7 +8,7 @@ def normalize_review(review):
         review = review[:review.find("Số người")].strip()
     if review.find("Sẽ quay lại") != -1: 
         review = review[:review.find("Sẽ quay lại")].strip()
-    review = re.sub(r"(“|’|”)", '', review)
+    review = re.sub(r"(“|’|”|\^\^)", '', review)
 
     # remove emojis
     emoji_pattern = re.compile("["

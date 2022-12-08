@@ -8,7 +8,7 @@ from .viz import *
 from bs4 import BeautifulSoup
 import pdb
 import ast
-from datetime import datetime
+import dateutil.parser as dparser
 import re
 
 from underthesea import word_tokenize
@@ -167,7 +167,7 @@ def dashboard(request, res_id):
 	else:
 		review = eval(review[0])
 	for i in range(len(review)):
-		review[i]['Date'] = datetime.strptime(review[i]['Date'], "%d/%m/%Y %H:%M")
+		review[i]['Date'] = dparser.parse(review[i]['Date'], dayfirst=True, fuzzy=True) #"%d/%m/%Y %H:%M"
 		review[i]['Body'] = normalize_review(review[i]['Body'])
 		if review[i]['User_score'] == 0:
 			review[i]['User_score'] = '---'
