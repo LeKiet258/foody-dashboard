@@ -126,6 +126,7 @@ def dashboard(request, res_id):
 	ret['capacity'] = vendor['Capacity'].item()
 	ret['servicefee'] = "{:,}".format(int(vendor['service_fee'].item()))
 	ret['minshipfee'] = "{:,}".format(int(vendor['minimun_shiping_fee'].item()))
+	ret['img'] = vendor['PagePic'].item()
 	ret['coupons'] = coupons
 	
 	# review & seeding pie charts
