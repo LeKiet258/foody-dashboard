@@ -6,7 +6,7 @@ from .models import *
 from underthesea import word_tokenize
 
 # Create your views here.
-def compare(request):
+def select(request):
     res = Vendor.objects.all()
     for r in range(len(res)):
         cui = ''
@@ -55,6 +55,6 @@ def compare(request):
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
 
-            return render(request, 'compare.html', {'page_obj': page_obj})
+            return render(request, 'select.html', {'page_obj': page_obj})
 
-    return render(request, 'compare.html', {'page_obj': page_obj})
+    return render(request, 'select.html', {'page_obj': page_obj})
