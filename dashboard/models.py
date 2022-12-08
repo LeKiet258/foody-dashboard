@@ -2,17 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Film(models.Model):
-    title = models.CharField(max_length=200)
-    length = models.PositiveIntegerField(null=True)
-    year = models.PositiveIntegerField()
-    
-    def __str__(self):
-        return self.title
-
 class Vendor(models.Model):
     ReviewUrl = models.CharField(max_length=500, null=False)
-    RestaurantId = models.CharField(max_length=100, primary_key=True, editable=False)
+    RestaurantId = models.PositiveIntegerField(primary_key=True, editable=False)
     Name = models.CharField(max_length=100, null=True)
     Address = models.CharField(max_length=200, null=True)
     District = models.CharField(max_length=100, null=True)
@@ -64,21 +56,3 @@ class Vendor(models.Model):
     all_reviews = models.TextField(null=True)
     seeding_pct = models.TextField(null=True)
 
-
-class Chart(models.Model):
-    name = models.CharField(max_length=200) 
-    start_date = models.DateField()
-    responsible = models.ForeignKey(User, on_delete=models.CASCADE)
-    week_number = models.CharField(max_length=2, blank=True)
-    finish_date = models.DateField()
-
-    #string representation method
-    def __str__(self):
-        return str(self.name)
-
-    #overiding the save method
-    def save(self, *args, **kwargs):
-        print(self.start_date.isocalendar()[1])
-        if self.week_number == "":
-            self.week_number = self.start_date.isocalendar()[1]
-        super().save(*args, **kwargs)

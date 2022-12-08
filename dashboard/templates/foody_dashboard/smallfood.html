@@ -133,7 +133,7 @@
                                 onmouseout="this.style.backgroundColor=''">
                                 <th
                                     style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;">
-                                    <a href="/filter">{{i.Name}}</a></th>
+                                    <a href="{% url 'dashboard' i.RestaurantId %}">{{i.Name}}</a></th>
                                 <td
                                     style="width: 180px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 180px;text-overflow: ellipsis;text-align: center;">
                                     {{i.District}}</td>
