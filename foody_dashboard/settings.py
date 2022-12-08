@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     'dashboard',
     'search',
+    'compare',
     'django_extensions'
 ]
 

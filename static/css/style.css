@@ -6,7 +6,7 @@ body {
 }
 
 .main-filter-config{
-  background-color: #40a454;
+  background-color: #10A19D ;
 }
 
 .table {
@@ -29,6 +29,7 @@ body {
 .bg-main {
   /* background-color: rgb(103, 179, 153); */
   min-height: 92vh;
+  position: relative;
 }
 
 .table-info {
@@ -53,6 +54,15 @@ body {
 .main-filter {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.main-filter-form {
+  position: absolute;
+  left: 120px;
+  top: 40px;
+  z-index: 100;
+  display: none;
 }
 
 .main-filter-config {
@@ -61,6 +71,7 @@ body {
   /* background-color: rgb(155, 129, 95); */
   text-align: center;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .main-filter-result {
@@ -85,13 +96,36 @@ body {
   border: 1px solid #dee2e6;
 }
 
-a {
+a, a:hover {
   color: #06080a;
   text-decoration: none;
   background-color: transparent;
 }
+
 .navbar-light .navbar-brand {
   color: #f8f9fa;
   font-size: 25px;
+  cursor: pointer;
 }
 
+.show {
+  display: block;
+}
+
+.grid {
+  display: grid;
+}
+
+.main-compare-config {
+  margin: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #F2F7A1;
+}
+
+.btn-compare {
+  border: none;
+  background-color: inherit;
+}
