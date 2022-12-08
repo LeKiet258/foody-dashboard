@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import compare
+from .views import select
 
 
 urlpatterns = [
-    path('compare/', compare, name="compare")
+    path('select/', select, name="select")
 ]
