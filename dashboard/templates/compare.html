@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+  </head>
+
+  <body style="background-color:rgb(238, 227, 227);">
+
+    {% autoescape off %}
+      {{ review_type }}
+      {{ seeding }}
+      {{ user_score }}
+      {{ component_score }}
+    {% endautoescape %}
+
+  </body>
+</html>

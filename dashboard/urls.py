@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="home"), 
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('/<str:page>/', views.home), # "home/<str:page>/"
+    path('/<str:page>/', views.home), 
+    path('dashboard/<int:res_id>', views.dashboard, name='dashboard'),
+    path('compare/', views.compare_2_vendors, name='compare') # compare/<int:res_id1>-<int:res_id2>
 ]

@@ -17,6 +17,7 @@
 
 <body>
     <div class="container" style="max-width: 1450px;">
+        <!-- header -->
         <div class="row">
             <div class="col-sm">
                 <nav class="navbar navbar-light bg-beauty">
@@ -39,6 +40,7 @@
             </div>
 
             <div>
+                <!-- bộ lọc -->
                 <div class="main-filter">
                     <h5 class="main-filter-config" onclick="showFilter()">
                         <a href="#">Bộ lọc</a>
@@ -124,7 +126,7 @@
                     </table>
                 </div>
 
-
+                <!-- nội dung bảng -->
                 <div style="max-height: 450px; overflow-y: auto;" class="table-container">
                     <table class="table bg-light">
                         <tbody>
@@ -133,7 +135,7 @@
                                 onmouseout="this.style.backgroundColor=''">
                                 <th
                                     style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;">
-                                    <a href="/filter">{{i.Name}}</a></th>
+                                    <a href="{% url 'dashboard' i.RestaurantId %}">{{i.Name}}</a></th>
                                 <td
                                     style="width: 180px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 180px;text-overflow: ellipsis;text-align: center;">
                                     {{i.District}}</td>
@@ -185,11 +187,10 @@
                             {% endfor %}
 
                         </tbody>
-
                     </table>
                 </div>
 
-
+                <!-- phân trang -->
                 <div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center" style="background-color: #e38b62;">

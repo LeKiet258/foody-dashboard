@@ -1,27 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-import urllib
-import base64
 import pandas as pd
-from matplotlib.ticker import MaxNLocator
 from plotly.offline import plot
-import plotly.express as px
 from django.core.paginator import Paginator
-import io
-import matplotlib.pyplot as plt
+from .viz import *
+from bs4 import BeautifulSoup
+import pdb
+import ast
+import dateutil.parser as dparser
+import re
 
 from underthesea import word_tokenize
 
-data_hcm = pd.read_csv("dashboard/data/data_merge.csv")
-menu = pd.read_csv("dashboard/data/menu.csv")
-menu_dish = pd.read_csv("dashboard/data/menu_dish.csv")
+data_hcm = pd.read_csv("data/data_merge.csv")
+menu = pd.read_csv("data/menu.csv")
+menu_dish = pd.read_csv("data/menu_dish.csv")
 
 cuisines_list = ['Bánh Pizza', 'Hà Nội', 'Miền Đông', 'Campuchia', 'Tây Ban Nha', 'Mỹ', 'Pháp', 'Nam Định', 'Đài Loan', 'Tây Bắc', 'Á', 'Úc', 'Âu', 'Đặc biệt', 'Đặc sản vùng', 'Đức', 'Buôn Mê', 'Iran', 'Châu Phi', 'Bắc Âu', 'Ý', 'Mexico', 'Đà Lạt', 'Philippines', 'Bình Định', 'Ấn Độ', 'Canada', 'Miền Nam', 'Tiệp (Séc)', 'Malaysia', 'Trung Đông', 'Quốc tế', 'Hàn', 'Nha Trang', 'Thổ Nhĩ Kỳ', 'Đông Âu', 'Brazil', 'Việt', 'Quảng', 'Thái', 'Ả Rập', 'Nhật', 'Miền Tây', 'Tây Nguyên', 'Bắc', 'Trung Hoa', 'Huế', 'Singapore', 'Miền Trung', 'Châu Mỹ']
 districts_list = ['Quận 1', 'Quận 3', 'Quận Phú Nhuận', 'Quận 5', 'Quận Tân Bình', 'Quận Bình Thạnh', 'Quận 11', 'Quận 10','Quận Tân Phú', 'Quận Bình Tân', 'Quận 8', 'Quận Gò Vấp', 'Quận 4', 'Tp. Thủ Đức', 'Quận 7', 'Quận 9', 'Quận 6', 'Quận 2','Huyện Nhà Bè', 'Quận 12', 'Huyện Hóc Môn', 'Huyện Bình Chánh', 'Huyện Củ Chi'] 
 # Create your views here.
-
-
 def home(request):
     # global data_hcm
     res = Vendor.objects.all()
@@ -80,97 +78,106 @@ def home(request):
 
     return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
+def compare_2_vendors(request):
+	global data_hcm, menu, menu_dish
+	res_id1, res_id2 = 90018, 44868
+	vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (data_hcm['RestaurantId'] == res_id2)]
+	ret = {}
 
-def dashboard(request):
-    global data_hcm, menu, menu_dish
-    ret = {}
-    res_id = 90018
-    vendor = data_hcm.loc[data_hcm['RestaurantId'] == res_id]
+	# review type
+	fig = compare_review_type(vendor)
+	ret['review_type'] = plot(fig, output_type="div")
 
-    ### Review ###
-    df = vendor[["nExcellentReviews", "nGoodReviews",
-                 "nAverageReviews", "nBadReviews"]]
-    df = df.T[[1]]
-    df.rename(index={'nExcellentReviews': 'Tuyệt vời',
-                     'nGoodReviews': 'Tốt',
-                     'nAverageReviews': 'Trung bình',
-                     'nBadReviews': 'Tệ'}, inplace=True)
-    df = df.reset_index().rename(
-        columns={"index": "loại review", 1: "số người"})
+	# seeding
+	fig = compare_seeding(vendor)
+	ret['seeding'] = plot(fig, output_type="div")
 
-    fig = px.pie(df, values='số người', names='loại review',
-                 title='Tỷ lệ từng loại review của quán', width=500, height=400)
-    fig.update_layout(title_x=0.5)
-    ret['review'] = plot(fig, output_type="div")
+	# user_score
+	fig = compare_user_score(vendor)
+	ret['user_score'] = plot(fig, output_type="div")
 
-    ### Seeding ###
-    vendor = data_hcm.loc[data_hcm['RestaurantId'] == res_id]
+	# component score
+	fig = compare_component_score(vendor)
+	ret['component_score'] = plot(fig, output_type="div")
 
-    df = vendor[["seeding_pct"]]
-    df = df.T[[1]]
-    df = df.rename(index={'seeding_pct': 'seeding'}, columns={
-                   1: "Tỷ lệ"}).reset_index().rename(columns={'index': 'Loại'})
-    df.loc[1] = ["trung thực", 1 - df.iloc[0, 1]]
+	return render(request, 'compare.html', ret)
 
-    fig = px.pie(df, values='Tỷ lệ', names='Loại',
-                 title='Tỷ lệ seeding của quán', width=500, height=400)
-    fig.update_layout(title_x=0.5)
-    ret['seeding'] = plot(fig, output_type="div")
+def dashboard(request, res_id):
+	global data_hcm, menu, menu_dish
+	ret = {}
+	vendor = data_hcm.loc[data_hcm['RestaurantId'] == res_id]
 
-    ### Score ###
-    review = vendor['Reviews'].to_list()
-    review = eval(review[0])
-    user_score = [user['User_score'] for user in review]
-    # filter user cho 0d (thường là các advert)
-    user_score = list(filter(lambda a: a != 0, user_score))
+	coupons = []
 
-    fig, ax = plt.subplots(1, 1, figsize=(15, 7))
-    df = pd.Series(user_score).value_counts()
-    df.index = df.index.astype(float)
-    df.sort_index(ascending=True).plot.bar(ax=ax, rot=0)
+	for i in range(len(ast.literal_eval(vendor['expired'].item()))):
+		coupons.append({'expired': ast.literal_eval(vendor['expired'].item())[i], 
+		'promo_description': ast.literal_eval(vendor['promo_description'].item())[i], 
+		'promo_code': ast.literal_eval(vendor['promo_code'].item())[i], 
+		'discount': "{:,}".format(int(ast.literal_eval(vendor['max_discount_value'].item())[i]))})
 
-    xticklabels = ax.get_xticklabels()
-    for i, tick in enumerate(xticklabels):
-        if float(tick.get_text()) < 6.0:
-            ax.get_children()[i].set_color('brown')
+	ret['page'] = vendor['ReviewUrl'].item()
+	ret['name'] = vendor['Name'].item()
+	ret['address'] = vendor['Address'].item()
+	ret['isdelivery'] = vendor['IsDelivery'].item()
+	ret['mincharge'] = '{:,}'.format(int(vendor['min_charge'].item()))
+	ret['extrainfo'] = vendor['ExtraInfo'].item()
+	ret['opentime'] = vendor['OpenTime'].item()
+	ret['totalpics'] = vendor['TotalPictures'].item()
+	ret['totalviews'] = vendor['TotalViews'].item()
+	ret['totalsaves'] = vendor['TotalSaves'].item()
+	ret['capacity'] = vendor['Capacity'].item()
+	ret['servicefee'] = "{:,}".format(int(vendor['service_fee'].item()))
+	ret['minshipfee'] = "{:,}".format(int(vendor['minimun_shiping_fee'].item()))
+	ret['coupons'] = coupons
+	
+	# review & seeding pie charts
+	fig = review_seeding_ratio(vendor)
+	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
+	parsed_html.find('div')['class'] = 'grid-child purple'
+	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
+	ret['review_seeding'] = plot(fig, output_type="div")
 
-    # ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-    ax.grid(axis='y')
-    ax.set(xlabel="Điểm (thang 10)", ylabel="Số người",
-           title=f"Điểm số đánh giá của {len(user_score)} người dùng")
+	# component score
+	fig = component_score(vendor)
+	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
+	parsed_html.find('div')['class'] = 'grid-child green'
+	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
+	ret['component_score'] = parsed_html
 
-    # convert graph into dtring buffer and then we convert 64 bit code into image
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png')
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
-    uri = urllib.parse.quote(string)
-    ret['score'] = uri
+	# menu bar-range chart
+	menu_vendor = menu[menu['RestaurantID'] == res_id]
+	df = menu_dish[menu_dish['RestaurantID'] == res_id].copy()
+	df.drop(columns=['RestaurantID', 'dish_id', 'dish_description', 'dish_total_like', 'dish_is_available'], inplace=True)
+	df = df.merge(menu_vendor.drop(columns=['RestaurantID']), on='dish_type_id', how='left').drop(columns='dish_type_id')
+	fig = menu_bar(df)
+	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
+	parsed_html.find('div')['class'] = 'relative'
+	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
+	ret['menu'] = parsed_html
 
-    ### Menu ###
-    menu_vendor = menu[menu['RestaurantID'] == res_id]
-    df = menu_dish[menu_dish['RestaurantID'] == res_id].copy()
-    df.drop(columns=['RestaurantID', 'dish_id', 'dish_description',
-            'dish_total_like', 'dish_is_available'], inplace=True)
-    df = df.merge(menu_vendor.drop(columns=[
-                  'RestaurantID']), on='dish_type_id', how='left').drop(columns='dish_type_id')
-    df = df.groupby('dish_type_name').agg(
-        {'dish_price_value': ['min', 'max']})['dish_price_value']
+	### user score
+	fig = user_score_bar(vendor) # -1: ko cào dc review
+	parsed_html = BeautifulSoup(plot(fig, output_type="div"), 'html.parser')
+	parsed_html.find('div')['class'] = 'center2'
+	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
+	ret['user_score'] = parsed_html
 
-    fig, ax = plt.subplots(1, 1, figsize=(7, 7))
-    ax.barh(range(len(df['max'])), width=[
-            h-b for h, b in zip(df['max'], df['min'])], left=df['min'], align='center')
-    ax.set_yticks(range(len(df.index.to_list())),
-                  df.index.to_list(), size='small', rotation=0)
-    ax.set_xticks(ax.get_xticks())
-    ax.grid(axis='x')
-    ax.set_title("Thực đơn")
-    # convert graph into dtring buffer and then we convert 64 bit code into image
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png', bbox_inches="tight")
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
-    uri = urllib.parse.quote(string)
-    ret['menu'] = uri
+	# display review
+	review = vendor['Reviews'].to_list()
+	if pd.isnull(review[0]):
+		print(1) # nếu ko có thì ko show bảng
+	else:
+		review = eval(review[0])
+	for i in range(len(review)):
+		review[i]['Date'] = dparser.parse(review[i]['Date'], dayfirst=True, fuzzy=True) #"%d/%m/%Y %H:%M"
+		review[i]['Body'] = normalize_review(review[i]['Body'])
+		if review[i]['User_score'] == 0:
+			review[i]['User_score'] = '---'
+	review = sorted(review, key=lambda d: d['Date']) 
+	# convert datetime back to string
+	for i in range(len(review)):
+		review[i]['Date'] = review[i]['Date'].strftime("%d/%m/%Y, %H:%M")
+	
+	ret['review'] = review
 
-    return render(request, 'dashboard.html', ret)
+	return render(request, 'dashboard.html', ret)
