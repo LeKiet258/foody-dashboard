@@ -16,6 +16,7 @@
 
 <body>
     <div class="container" style="max-width: 1450px;">
+        <!-- header -->
         <div class="row">
             <div class="col-sm">
                 <nav class="navbar navbar-light bg-beauty">
@@ -38,13 +39,15 @@
             </div>
 
             <div>
+                <!-- bộ lọc -->
                 <div class="main-filter">
                     <h5 class="main-filter-config">
                         <a href="/filter">Bộ lọc</a>
                         <i class="fa fa-filter"></i>
                     </h5>
                 </div>
-
+                
+                <!-- bảng -->
                 <div class="table-container">
                     <table class="table table-striped bg-light">
                         <thead class="thead-dark">
@@ -82,7 +85,7 @@
                     </table>
                 </div>
 
-
+                <!-- nội dung bảng -->
                 <div style="max-height: 450px; overflow-y: auto;" class="table-container">
                     <table class="table bg-light">
                         <tbody>
@@ -143,11 +146,10 @@
                             {% endfor %}
 
                         </tbody>
-
                     </table>
                 </div>
 
-
+                <!-- phân trang -->
                 <div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center" style="background-color: #e38b62;">

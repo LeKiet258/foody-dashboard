@@ -1,9 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap">
 
@@ -167,44 +172,60 @@
       {{ user_score }}
     {% endautoescape %}
 
+    <br>
+    <div class="container" style="max-width: 1300px;">
+      <!-- bảng -->
+      <div class="table-container">
+        <table class="table table-striped bg-light">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col"
+              style="width: 100px;max-width: 100px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                  Ngày</th>
+              <th scope="col"
+                  style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                  Username</th>
+              <th scope="col"
+                  style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                  Điểm</th>
+              <th scope="col"
+                  style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                  Nội dung đánh giá</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
 
-    <!-- <br>
-    <div class="table-container">
-      <table class="table table-striped bg-light">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col"
-                style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;">
-                Cửa hàng</th>
-            <th scope="col"
-                style="width: 180px;max-width: 180px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                Quận</th>
-            <th scope="col"
-                style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                Ẩm thực</th>
-            <th scope="col"
-                style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                Điểm</th>
-            <th scope="col"
-                style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                Giá</th>
-            <th scope="col"
-                style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                Giờ mở cửa</th>
-            <th scope="col"
-                style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                Số lượt xem</th>
-            <th scope="col"
-                style="width: 90px;max-width: 90px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                Số đánh giá</th>
-            <th scope="col"
-                style="width: 70px;max-width: 70px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                Tỷ lệ QC</th>
-            <th style="width: 2px;max-width: 2px;padding-left: 9px;padding-right: 9px;"></th>
-          </tr>
-        </thead>
-      </table>
-    </div> -->
+      <!-- ND bảng -->
+      <div style="max-height: 450px; overflow-y: auto;" class="table-container">
+        <table class="table bg-light">
+            <tbody>
+                {% for i in review %}
+                <tr onmouseover="this.style.backgroundColor='#8099c6'"
+                    onmouseout="this.style.backgroundColor=''">
+                    <th
+                        style="width: 120px;max-width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                        {{i.Date}}
+                    </th>
+                    <td
+                        style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                        {{i.Usernames}}
+                    </td>
+                    <td
+                        style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                        {{i.User_score}}
+                    </td>
+                    <td
+                        style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: left;">
+                        {{i.Body}}
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+      </div>
+    </div>
 
   </body>
 </html>

@@ -1,19 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-import urllib
-import base64
 import pandas as pd
-from matplotlib.ticker import MaxNLocator
 from plotly.offline import plot
-import plotly.express as px
 from django.core.paginator import Paginator
-import io
-import matplotlib.pyplot as plt
 from .viz import *
 from bs4 import BeautifulSoup
 import pdb
 import ast
+from datetime import datetime
 import re
 
 from underthesea import word_tokenize
@@ -81,6 +76,29 @@ def home(request):
 
     return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj})
 
+def compare_2_vendors(request):
+	global data_hcm, menu, menu_dish
+	res_id1, res_id2 = 90018, 44868
+	vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (data_hcm['RestaurantId'] == res_id2)]
+	ret = {}
+
+	# review type
+	fig = compare_review_type(vendor)
+	ret['review_type'] = plot(fig, output_type="div")
+
+	# seeding
+	fig = compare_seeding(vendor)
+	ret['seeding'] = plot(fig, output_type="div")
+
+	# user_score
+	fig = compare_user_score(vendor)
+	ret['user_score'] = plot(fig, output_type="div")
+
+	# component score
+	fig = compare_component_score(vendor)
+	ret['component_score'] = plot(fig, output_type="div")
+
+	return render(request, 'compare.html', ret)
 
 def dashboard(request, res_id):
 	global data_hcm, menu, menu_dish
@@ -142,8 +160,22 @@ def dashboard(request, res_id):
 	parsed_html = re.sub("(<body>|</body>|<html>|</html>)", "", str(parsed_html))
 	ret['user_score'] = parsed_html
 
+	# display review
+	review = vendor['Reviews'].to_list()
+	if pd.isnull(review[0]):
+		print(1) # nếu ko có thì ko show bảng
+	else:
+		review = eval(review[0])
+	for i in range(len(review)):
+		review[i]['Date'] = datetime.strptime(review[i]['Date'], "%d/%m/%Y %H:%M")
+		review[i]['Body'] = normalize_review(review[i]['Body'])
+		if review[i]['User_score'] == 0:
+			review[i]['User_score'] = '---'
+	review = sorted(review, key=lambda d: d['Date']) 
+	# convert datetime back to string
+	for i in range(len(review)):
+		review[i]['Date'] = review[i]['Date'].strftime("%d/%m/%Y, %H:%M")
 	
-
-	
+	ret['review'] = review
 
 	return render(request, 'dashboard.html', ret)
