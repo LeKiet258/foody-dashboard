@@ -10,7 +10,6 @@ import pdb
 import ast
 import dateutil.parser as dparser
 import re
-
 from underthesea import word_tokenize
 
 data_hcm = pd.read_csv("data/data_merge.csv")
@@ -76,7 +75,7 @@ def home(request):
 
     return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj})
 
-def compare_2_vendors(request):
+def compare_2_vendors(request, res_id1, res_id2):
 	global data_hcm, menu, menu_dish
 	res_id1, res_id2 = 90018, 44868
 	vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (data_hcm['RestaurantId'] == res_id2)]
