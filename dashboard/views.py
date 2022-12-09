@@ -21,62 +21,66 @@ cuisines_list = ['Bánh Pizza', 'Hà Nội', 'Miền Đông', 'Campuchia', 'Tây
 districts_list = ['Quận 1', 'Quận 3', 'Quận Phú Nhuận', 'Quận 5', 'Quận Tân Bình', 'Quận Bình Thạnh', 'Quận 11', 'Quận 10','Quận Tân Phú', 'Quận Bình Tân', 'Quận 8', 'Quận Gò Vấp', 'Quận 4', 'Tp. Thủ Đức', 'Quận 7', 'Quận 9', 'Quận 6', 'Quận 2','Huyện Nhà Bè', 'Quận 12', 'Huyện Hóc Môn', 'Huyện Bình Chánh', 'Huyện Củ Chi'] 
 # Create your views here.
 def home(request):
-    # global data_hcm
-    res = Vendor.objects.all()
-    for r in range(len(res)):
-        cui = ''
-        temp = res[r].cuisines[1:len(res[r].cuisines)-1].split(", ")
-        for t in temp:
-            t = t[1:len(t)-1].split('Món ')[-1]
-            cui += t + ', '
-        res[r].cuisines = cui[:-2]
+	# global data_hcm
+	res = Vendor.objects.all()
+	for r in range(len(res)):
+		cui = ''
+		temp = res[r].cuisines[1:len(res[r].cuisines)-1].split(", ")
+		for t in temp:
+			t = t[1:len(t)-1].split('Món ')[-1]
+			cui += t + ', '
+		res[r].cuisines = cui[:-2]
+		res[r].AvgScore = round(res[r].AvgScore, 1) if res[r].AvgScore > 0 else ''
+		
+		res[r].TotalReviews = res[r].nBadReviews + res[r].nAverageReviews + res[r].nGoodReviews + res[r].nExcellentReviews
+		if res[r].TotalReviews < 0:
+			res[r].TotalReviews = ''
 
-        res[r].AvgScore = round(res[r].AvgScore, 1)
+		res[r].min_price = int(res[r].min_price)
+		res[r].max_price = int(res[r].max_price)
+		res[r].TotalViews = int(res[r].TotalViews)
+		if res[r].seeding_pct == '':
+			res[r].seeding_pct = 0
+		elif res[r].seeding_pct == '1.00':
+			res[r].seeding_pct = 100
+		else:
+			if len(res[r].seeding_pct.split('.')[1]) == 1:
+				res[r].seeding_pct = int(res[r].seeding_pct.split('.')[1])*10
+			else:
+				res[r].seeding_pct = int(res[r].seeding_pct.split('.')[1])
+		
 
-        res[r].min_price = int(res[r].min_price)
-        res[r].max_price = int(res[r].max_price)
-        res[r].TotalViews = int(res[r].TotalViews)
-        if res[r].seeding_pct == '':
-            res[r].seeding_pct = 0
-        elif res[r].seeding_pct == '1.00':
-            res[r].seeding_pct = 100
-        else:
-            if len(res[r].seeding_pct.split('.')[1]) == 1:
-                res[r].seeding_pct = int(res[r].seeding_pct.split('.')[1])*10
-            else:
-                res[r].seeding_pct = int(res[r].seeding_pct.split('.')[1])
+	paginator = Paginator(res, 25)  # Show 25 res per page.
+	page_number = request.GET.get('page')
+	page_obj = paginator.get_page(page_number)
 
-    paginator = Paginator(res, 25)  # Show 25 res per page.
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+	# review = Vendor.objects.get()
 
-    # review = Vendor.objects.get()
+	# search Khải add
+	if request.method == 'POST':
+		search = request.POST.get('search')
+		searchPares = word_tokenize(search)
 
-    # search Khải add
-    if request.method == 'POST':
-        search = request.POST.get('search')
-        searchPares = word_tokenize(search)
+		finalVendors = []
+		for searchPare in searchPares:
+			for vendor in res:
+				if searchPare.lower() in vendor.Name.lower() and vendor not in finalVendors:
+					finalVendors.append(vendor)
 
-        finalVendors = []
-        for searchPare in searchPares:
-            for vendor in res:
-                if searchPare.lower() in vendor.Name.lower() and vendor not in finalVendors:
-                    finalVendors.append(vendor)
+		context = {'vendors': finalVendors}
 
-        context = {'vendors': finalVendors}
+		if len(finalVendors) == 0:
+			return render(request, 'search/emptyPage.html', context)
 
-        if len(finalVendors) == 0:
-            return render(request, 'search/emptyPage.html', context)
+		else:
+			# tạm thời chưa cho phân trang.
+			paginator = Paginator(finalVendors, len(finalVendors))
+			page_number = request.GET.get('page')
+			page_obj = paginator.get_page(page_number)
 
-        else:
-            # tạm thời chưa cho phân trang.
-            paginator = Paginator(finalVendors, len(finalVendors))
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
+			return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
-            return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
-
-    return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
+	return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
 def compare_2_vendors(request):
 	global data_hcm, menu, menu_dish

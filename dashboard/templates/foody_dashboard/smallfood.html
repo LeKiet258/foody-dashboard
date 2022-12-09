@@ -148,9 +148,15 @@
                                     style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
                                     {{i.cuisines}}</td>
                                 {% endif %}
+                                {% if i.AvgScore == '' %}
+                                <td
+                                    style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
+                                    ---</td>
+                                {% else %}
                                 <td
                                     style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis; padding-left: 20px;padding-left: 12px;text-align: center">
                                     {{i.AvgScore}}</td>
+                                {% endif %}
                                 {% if i.max_price == -1.0 or i.max_price == 0 %}
                                 <td
                                     style="width: 150px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 150px;text-overflow: ellipsis;text-align: center;">
@@ -174,10 +180,16 @@
                                 <td
                                     style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis; padding-left: 20px;;text-align: center">
                                     {{i.TotalViews}}</td>
+                                
+                                {% if i.TotalReviews == '' %}
                                 <td
                                     style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis;text-align: center;">
-                                    {{i.nBadReviews|add:i.nAverageReviews|add:i.nGoodReviews|add:i.nExcellentReviews}}
-                                </td>
+                                    ---</td>
+                                {% else %}
+                                <td
+                                    style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis;text-align: center;">
+                                    {{i.TotalReviews}}</td>
+                                {% endif %}
 
                                 <td
                                     style="width: 70px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 70px;text-overflow: ellipsis;text-align: center;">

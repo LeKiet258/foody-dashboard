@@ -34,6 +34,10 @@ def normalize_review(review):
     # remove redundant punctuation
     review = re.sub(r'(\W)(?=\1)', '', review)
 
+    # xoá khoảng trống trước dấu fẩy & chấm
+    review = re.sub(r'\s+,', r',', review)
+    review = re.sub(r'\s+[.]', r'.', review)
+
     new_text = []
     for sen in review.split("."):
         if sen.replace(" ", ""):
