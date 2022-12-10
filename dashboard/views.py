@@ -80,7 +80,7 @@ def home(request):
 
 			return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
-	return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
+	return render(request, 'smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
 def compare_2_vendors(request):
 	global data_hcm, menu, menu_dish
