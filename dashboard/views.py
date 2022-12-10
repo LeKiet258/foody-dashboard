@@ -77,7 +77,7 @@ def home(request):
 
 def compare_2_vendors(request, res_id1, res_id2):
 	global data_hcm, menu, menu_dish
-	res_id1, res_id2 = 90018, 44868
+	res_id1, res_id2 = 2, 2402
 	vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (data_hcm['RestaurantId'] == res_id2)]
 	ret = {}
 

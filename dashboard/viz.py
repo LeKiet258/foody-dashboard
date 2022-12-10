@@ -28,7 +28,8 @@ def compare_component_score(vendor):
     fig.add_trace(go.Scatterpolar(r=df2['score'], theta=df2['index'], fill='toself', hovertemplate="%{r}<extra></extra>", 
                                 name=vendor2['Name'].iloc[0]))
     fig.update_layout(
-        width=800,
+        width=750,
+        height=400,
         showlegend=True,
         legend = dict(itemclick='toggleothers'), # click legend nào thì chỉ legend đó visible
         title = {
@@ -36,7 +37,7 @@ def compare_component_score(vendor):
             'x':0.5,
             'xanchor': 'center',
             'yanchor': 'top',
-            'font': {'size': 23, 'family': 'Arial'}
+            'font': {'size': 18, 'family': 'Arial'}
         },
         margin=dict(t=100) # nới space between title & chart
     )
@@ -115,7 +116,8 @@ def compare_user_score(vendor):
     )
 
     fig.update_layout(
-        width=1000,
+        width=750,
+        height=400,
         margin=dict(t=120), 
         yaxis2={"side": "right", "matches": None, "showticklabels": False},
         yaxis={"showticklabels": True, 'title': "Khoảng điểm"}, # tune this
@@ -127,7 +129,7 @@ def compare_user_score(vendor):
             'x':0.5,
             'xanchor': 'center',
             'yanchor': 'top',
-            'font': {'size': 23, 'family': 'Arial'}
+            'font': {'size': 18, 'family': 'Arial'}
         },
     )
 
@@ -180,7 +182,7 @@ def compare_seeding(vendor):
             'x':0.5,
             'xanchor': 'center',
             'yanchor': 'top',
-            'font': {'size': 23, 'family': 'Arial'}
+            'font': {'size': 18, 'family': 'Arial'}
         },
         yaxis=dict(
             showgrid=False,
@@ -201,7 +203,7 @@ def compare_seeding(vendor):
                                 font=dict(family='Arial', size=14,
                                         color='rgb(67, 67, 67)'),
                                 showarrow=False, align='right'))
-    fig.update_layout(annotations=annotations, width=1000)
+    fig.update_layout(annotations=annotations, width=750, height=400)
     
     return fig
 
@@ -278,14 +280,15 @@ def compare_review_type(vendor):
 
     fig.update_layout(
         annotations=annotations,
-        width=1000,
+        width=750,
+        height=400,
         title = {
             'text': "<b>So sánh tỷ lệ từng loại đánh giá</b>",
             'y':0.9,
             'x':0.5,
             'xanchor': 'center',
             'yanchor': 'top',
-            'font': {'size': 23, 'family': 'Arial'}
+            'font': {'size': 18 , 'family': 'Arial'}
         },
         legend=dict(
             orientation="h",

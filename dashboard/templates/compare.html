@@ -5,41 +5,50 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap">
 </head>
 
 <body>
-  <div class="main-dashboard" style="float: left; width: 56%;   position: absolute; margin: auto; top: 0; right: 0; left: 0;">
-    <h1>Comparison dashboard</h1>
-    <div style="float: left;">
-      <div class="card-block">
+  <div class="main-dashboard" style="float: left; width: 88%;   position: absolute; margin: auto; top: 0; right: 0; left: 0;">
+    <div style="padding: 10px; display:inline-block; padding-left: 17px;">
+      <div class="card-block" style = "background-color: #FFFFFF; ">
+        <b style = "color: #2166ac; font-size:23px;">Comparision 1</b>
+      </div>
+    </div>
+    <!-- <div style="padding: 10px; display:inline-block; padding-left: 17px;">
+      <div class="card-block" style = "background-color: #FFFFFF; ">
+        <b style = "color: #2166ac; font-size:23px;">Comparision 2</b>
         {% autoescape off %}
         {{ review_type }}
         {% endautoescape %}
       </div>
     </div>
-    <div style="float: left;padding-top: 15px; ">
-      <div class="card-block">
+    <div style="padding: 10px; display:inline-block;">
+      <div class="card-block" style = "background-color: #FFFFFF; padding-left: 17px;">
+        <b style = "color: #2166ac; font-size:23px;">Comparision 3</b>
         {% autoescape off %}
         {{ seeding }}
         {% endautoescape %}
       </div>
     </div>
 
-    <div style="float: left; padding-top: 10px;">
-      <div class="card-block">
+    <div style="padding: 10px; display:inline-block;">
+      <div class="card-block" style = "background-color: #FFFFFF; padding-left: 17px;">
+        <b style = "color: #2166ac; font-size:23px;">Comparision 4</b>
         {% autoescape off %}
         {{ user_score }}
         {% endautoescape %}
       </div>
     </div>
 
-    <div style="float: left; padding-top: 10px;">
-      <div class="card-block">
+    <div style="padding: 10px; display:inline-block;">
+      <div class="card-block" style = "background-color: #FFFFFF; padding-left: 17px;">
+        <b style = "color: #2166ac; font-size:23px;">Comparision 5</b>
         {% autoescape off %}
         {{ component_score }}
         {% endautoescape %}
       </div>
-    </div>
+    </div> -->
   </div>
 
 
