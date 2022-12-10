@@ -11,10 +11,12 @@
 <body>
   <div class="main-dashboard"
     style="float: left; width: 87%; position: absolute; margin: auto; top: 0; right: 0; left: 0;">
-    <div>
-      {% for i in items %}
-      <div style="padding: 10px; display:inline-block;">
-        <div class="card-block" style="background-color: #FFFFFF; display:inline-block;">
+
+    <div style = "padding-left: 275px;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 1</b>
+      <div>
+        {% for i in items %}
+        <div class="card-block" style="background-color: #FFFFFF; display:inline-block; margin: 10px;">
           <div>
             <h3 style="text-align: center;"> {{ i.name }} </h3>
             <hr>
@@ -35,7 +37,7 @@
               <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
               <span class="coupon__tags">
                 {% for c in i.coupons %}
-                <span class="coupon__tag" href="#{{ c.promo_code }}" style = "display: inline-block;">
+                <span class="coupon__tag" href="#{{ c.promo_code }}" style="display: inline-block;">
                   Giảm {{ c.discount }} VND
                 </span>
                 {% endfor %}
@@ -74,8 +76,8 @@
     </div>
 
     <div style="padding: 10px; display:inline-block;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 2</b>
       <div class="card-block" style="background-color: #FFFFFF; ">
-        <b style="color: #2166ac; font-size:23px;">Comparision 1</b>
         {% autoescape off %}
         {{ review_type }}
         {% endautoescape %}
@@ -83,8 +85,8 @@
     </div>
 
     <div style="padding: 10px; display:inline-block;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 3</b>
       <div class="card-block" style="background-color: #FFFFFF;">
-        <b style="color: #2166ac; font-size:23px;">Comparision 2</b>
         {% autoescape off %}
         {{ seeding }}
         {% endautoescape %}
@@ -92,8 +94,8 @@
     </div>
 
     <div style="padding: 10px; display:inline-block;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 4</b>
       <div class="card-block" style="background-color: #FFFFFF;">
-        <b style="color: #2166ac; font-size:23px;">Comparision 3</b>
         {% autoescape off %}
         {{ user_score }}
         {% endautoescape %}
@@ -101,8 +103,8 @@
     </div>
 
     <div style="padding: 10px; display:inline-block;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 5</b>
       <div class="card-block" style="background-color: #FFFFFF;">
-        <b style="color: #2166ac; font-size:23px;">Comparision 4</b>
         {% autoescape off %}
         {{ component_score }}
         {% endautoescape %}
