@@ -1,231 +1,323 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap">
 
-    <style>
-      div.relative {
-        position: relative;
-        left: 40px;
-      }
-    </style>
-  </head>
+  <link rel="stylesheet" type="text/css" href="{% static '/css/filter.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
 
-  <body style="background-color:rgb(238, 227, 227);">
-    <div class="center1">
-      <div>
-        <h2><a href="https://www.foody.vn/{{ page }}">{{ name }} </a></h2>
-        <table>
-          <tr>
-            <td>
-              <p><b><i class="fa-solid fa-location-pin"></i> Địa chỉ: </b> {{ address }}</p>
-            </td>
-            <td>
-              <p><b><i class="fa-solid fa-clock"></i> Giờ mở cửa: </b> {{ opentime }} </p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>
-                <b><i class="fa-solid fa-truck-fast"></i> Hỗ trợ giao hàng: </b>
-                {% if isdelivery %}
-                Có giao hàng
-                {% else %}
-                Không giao hàng
-                {% endif %}
-              </p>
-            </td>
-            <td>
-              <p><b><i class="fa-solid fa-solid fa-tag"></i> Phụ phí tối thiểu: </b> {{ mincharge }} VND </p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p><b><i class="fa-solid fa-circle-info"></i> Thông tin thêm: </b> {{ extrainfo }}</p>
-            </td>
-            <td>
-              <p><b><i class="fa fa-camera"></i> Số hình ảnh của quán: </b> {{ totalpics | floatformat:"0" }} ảnh/video</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p><b><i class="fa-regular fa-eye"></i> Lượt xem: </b> {{ totalviews | floatformat:"0"}} lượt xem</p>
-            </td>
-            <td>
-              <p><b><i class="fa-solid fa-bookmark"></i> Lượt lưu vào bộ sưu tập: </b> {{ totalsaves | floatformat:"0"}} lượt lưu</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p><b><i class="fa-solid fa-person"></i> Sức chứa cửa hàng: </b> {{ capacity |floatformat:"0"}} người lớn</p>
-            </td>
-            <td>
-              <p><b><i class="fa-solid fa-solid fa-tag"></i> Phí dịch vụ: </b> {{ servicefee }} VND</p>
-            </td>
-          <tr>
-            <td>
-              <p><b><i class="fa-solid fa-solid fa-tag  "></i> Phí ship tối thiểu: </b> {{ minshipfee }} VND</p>
-            </td>
-            <td>
-              <p>
-                <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
-                <span class="coupon__tags">
-                  {% for c in coupons %}
-                  <span class="coupon__tag" href="#{{ c.promo_code }}">
-                    Giảm {{ c.discount }} VND
-                  </span>
-                  {% endfor %}
-                  {% for c in coupons %}
-                  <!-- The Modal -->
-                  <div id="{{ c.promo_code }}" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <span class="close">×</span>
-                      </div>
-                      <div class="modal-body">
-                        <div class="coupon">
-                          <div class="container">
-                            <h3>Ưu đãi</h3>
-                          </div>
-                          <div class="container" style="background-color:white">
-                            <h2><b>{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
-                            <div>{{ c.promo_description }}</div>
-                          </div>
-                          <div class="container">
-                            <p>Use Promo Code: <span class="promo"> {{ c.promo_code }}</span></p>
-                            <p class="expire">Expires: {{ c.expired }}</p>
-                          </div>
+  <style>
+    div.relative {
+      position: relative;
+      left: 40px;
+    }
+  </style>
+</head>
+
+<body style="background-color:rgb(238, 227, 227);">
+  <div class="center1">
+    <div>
+      <h2><a href="https://www.foody.vn/{{ page }}">{{ name }} </a></h2>
+      <table>
+        <tr>
+          <td>
+            <p><b><i class="fa-solid fa-location-pin"></i> Địa chỉ: </b> {{ address }}</p>
+          </td>
+          <td>
+            <p><b><i class="fa-solid fa-clock"></i> Giờ mở cửa: </b> {{ opentime }} </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              <b><i class="fa-solid fa-truck-fast"></i> Hỗ trợ giao hàng: </b>
+              {% if isdelivery %}
+              Có giao hàng
+              {% else %}
+              Không giao hàng
+              {% endif %}
+            </p>
+          </td>
+          <td>
+            <p><b><i class="fa-solid fa-solid fa-tag"></i> Phụ phí tối thiểu: </b> {{ mincharge }} VND </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><b><i class="fa-solid fa-circle-info"></i> Thông tin thêm: </b> {{ extrainfo }}</p>
+          </td>
+          <td>
+            <p><b><i class="fa fa-camera"></i> Số hình ảnh của quán: </b> {{ totalpics | floatformat:"0" }} ảnh/video
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><b><i class="fa-regular fa-eye"></i> Lượt xem: </b> {{ totalviews | floatformat:"0"}} lượt xem</p>
+          </td>
+          <td>
+            <p><b><i class="fa-solid fa-bookmark"></i> Lượt lưu vào bộ sưu tập: </b> {{ totalsaves | floatformat:"0"}}
+              lượt lưu</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><b><i class="fa-solid fa-person"></i> Sức chứa cửa hàng: </b> {{ capacity |floatformat:"0"}} người lớn
+            </p>
+          </td>
+          <td>
+            <p><b><i class="fa-solid fa-solid fa-tag"></i> Phí dịch vụ: </b> {{ servicefee }} VND</p>
+          </td>
+        <tr>
+          <td>
+            <p><b><i class="fa-solid fa-solid fa-tag  "></i> Phí ship tối thiểu: </b> {{ minshipfee }} VND</p>
+          </td>
+          <td>
+            <p>
+              <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
+              <span class="coupon__tags">
+                {% for c in coupons %}
+                <span class="coupon__tag" href="#{{ c.promo_code }}">
+                  Giảm {{ c.discount }} VND
+                </span>
+                {% endfor %}
+                {% for c in coupons %}
+                <!-- The Modal -->
+                <div id="{{ c.promo_code }}" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <span class="close">×</span>
+                    </div>
+                    <div class="modal-body">
+                      <div class="coupon">
+                        <div class="container">
+                          <h3>Ưu đãi</h3>
+                        </div>
+                        <div class="container" style="background-color:white">
+                          <h2><b>{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
+                          <div>{{ c.promo_description }}</div>
+                        </div>
+                        <div class="container">
+                          <p>Use Promo Code: <span class="promo"> {{ c.promo_code }}</span></p>
+                          <p class="expire">Expires: {{ c.expired }}</p>
                         </div>
                       </div>
                     </div>
                   </div>
-                  {% endfor %}
-                </span>
-              </p>
-            </td>
-        </table>
-      </div>
-    </div>
-  
-    <script>
-      // Get the button that opens the modal
-      var btn = document.querySelectorAll(".coupon__tag");
-
-      // All page modals
-      var modals = document.querySelectorAll('.modal');
-
-      // Get the <span> element that closes the modal
-      var spans = document.getElementsByClassName("close");
-
-      // When the user clicks the button, open the modal
-      for (var i = 0; i < btn.length; i++) {
-        btn[i].onclick = function (e) {
-          e.preventDefault();
-          modal = document.querySelector(e.target.getAttribute("href"));
-          modal.style.display = "block";
-        }
-      }
-
-      // When the user clicks on <span> (x), close the modal
-      for (var i = 0; i < spans.length; i++) {
-        spans[i].onclick = function () {
-          for (var index in modals) {
-            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
-          }
-        }
-      }
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function (event) {
-        if (event.target.classList.contains('modal')) {
-          for (var index in modals) {
-            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
-          }
-        }
-      }
-    </script>
-
-    {% autoescape off %}
-      {{ menu }}
-    {% endautoescape %}
-
-    <div class="grid-container">
-      {% autoescape off %}
-        {{ review_seeding }}
-        {{ component_score }}
-      {% endautoescape %}
-    </div>
-    
-    <br>
-
-    {% autoescape off %}
-      {{ user_score }}
-    {% endautoescape %}
-
-    <br>
-    <div class="container" style="max-width: 1300px;">
-      <!-- bảng -->
-      <div class="table-container">
-        <table class="table table-striped bg-light">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col"
-              style="width: 100px;max-width: 100px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                  Ngày</th>
-              <th scope="col"
-                  style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                  Username</th>
-              <th scope="col"
-                  style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                  Điểm</th>
-              <th scope="col"
-                  style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                  Nội dung đánh giá</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-
-      <!-- ND bảng -->
-      <div style="max-height: 450px; overflow-y: auto;" class="table-container">
-        <table class="table bg-light">
-            <tbody>
-                {% for i in review %}
-                <tr onmouseover="this.style.backgroundColor='#8099c6'"
-                    onmouseout="this.style.backgroundColor=''">
-                    <th
-                        style="width: 120px;max-width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                        {{i.Date}}
-                    </th>
-                    <td
-                        style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                        {{i.Usernames}}
-                    </td>
-                    <td
-                        style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                        {{i.User_score}}
-                    </td>
-                    <td
-                        style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: left;">
-                        {{i.Body}}
-                    </td>
-                </tr>
+                </div>
                 {% endfor %}
+              </span>
+            </p>
+          </td>
+      </table>
+    </div>
+  </div>
 
-            </tbody>
-        </table>
-      </div>
+  <script>
+    // Get the button that opens the modal
+    var btn = document.querySelectorAll(".coupon__tag");
+
+    // All page modals
+    var modals = document.querySelectorAll('.modal');
+
+    // Get the <span> element that closes the modal
+    var spans = document.getElementsByClassName("close");
+
+    // When the user clicks the button, open the modal
+    for (var i = 0; i < btn.length; i++) {
+      btn[i].onclick = function (e) {
+        e.preventDefault();
+        modal = document.querySelector(e.target.getAttribute("href"));
+        modal.style.display = "block";
+      }
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    for (var i = 0; i < spans.length; i++) {
+      spans[i].onclick = function () {
+        for (var index in modals) {
+          if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+        }
+      }
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target.classList.contains('modal')) {
+        for (var index in modals) {
+          if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+        }
+      }
+    }
+
+    //filter cmt
+    function showFilter() {
+      document.getElementById("filter-content").classList.toggle("show");
+    }
+
+    function showDistricts() {
+      document.getElementById("cuisines-filter").classList.remove("grid");
+      document.getElementById("districts-filter").classList.toggle("grid");
+    }
+
+    function showCuisines() {
+      document.getElementById("districts-filter").classList.remove("grid");
+      document.getElementById("cuisines-filter").classList.toggle("grid");
+    }
+
+    function deleteFilter(source) {
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+          checkboxes[i].checked = source.checked;
+      }
+    }
+  </script>
+
+  {% autoescape off %}
+  {{ menu }}
+  {% endautoescape %}
+
+  <div class="grid-container">
+    {% autoescape off %}
+    {{ review_seeding }}
+    {{ component_score }}
+    {% endautoescape %}
+  </div>
+
+  <br>
+
+  {% autoescape off %}
+  {{ user_score }}
+  {% endautoescape %}
+
+  <br>
+  <!-- bộ lọc -->
+  <div class="main-filter main-filter-dasboard">
+    <h5 class="main-filter-config" onclick="showFilter()">
+      <div href="#">Bộ lọc</div>
+      <i class="fa fa-filter"></i>
+    </h5>
+    <div class="main-filter-form main-filter-form-dasboard" id="filter-content">
+      <form class="flex-column p-2 rounded" method="post" action="/filter/">
+        {% csrf_token %}
+        <div class="flex-row-checkbox border-bottom p-3">
+          <div class="flex-column-area">
+            <button type="button" onclick="showDistricts()" class="btn btn-primary area">Điểm số</button>
+            <button type="button" onclick="showCuisines()" class="btn btn-info food">Thời gian</button>
+          </div>
+
+          <div class="filter p-3 rounded districts" id="districts-filter">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="districts" value="Xuất sắc" id="xuat-sac">
+              <label class="form-check-label" for="xuat-sac">
+                Xuất sắc
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="districts" value="Tốt" id="tot">
+              <label class="form-check-label" for="tot">
+                Tốt
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="districts" value="Trung bình" id="trung-binh">
+              <label class="form-check-label" for="trung-binh">
+                Trung bình
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="districts" value="Tệ" id="te">
+              <label class="form-check-label" for="te">
+                Tệ
+              </label>
+            </div>
+
+          </div>
+          <div class="filter p-3 rounded cuisines" id="cuisines-filter">
+            {% for cuisine in cuisines %}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="cuisines" value="{{ cuisine }}" id="{{ cuisine }}">
+              <label class="form-check-label" for="{{ cuisine }}">
+                {{ cuisine }}
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="flex-row-search-delete p-3">
+          <button type="submit" class="btn btn-success search">Tìm kiếm</button>
+          <button onclick="deleteFilter(this);" type="button" class="btn btn-danger delete">Xóa bộ lọc</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <div class="container" style="max-width: 1300px;">
+    <!-- bảng -->
+    <div class="table-container">
+      <table class="table table-striped bg-light">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"
+              style="width: 100px;max-width: 100px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+              Ngày</th>
+            <th scope="col"
+              style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+              Username</th>
+            <th scope="col"
+              style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+              Điểm</th>
+            <th scope="col"
+              style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+              Nội dung đánh giá</th>
+          </tr>
+        </thead>
+      </table>
     </div>
 
-  </body>
+    <!-- ND bảng -->
+    <div style="max-height: 450px; overflow-y: auto;" class="table-container">
+      <table class="table bg-light">
+        <tbody>
+          {% for i in review %}
+          <tr onmouseover="this.style.backgroundColor='#8099c6'" onmouseout="this.style.backgroundColor=''">
+            <th
+              style="width: 120px;max-width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+              {{i.Date}}
+            </th>
+            <td
+              style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+              {{i.Usernames}}
+            </td>
+            <td
+              style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+              {{i.User_score}}
+            </td>
+            <td
+              style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: left;">
+              {{i.Body}}
+            </td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+
 </html>

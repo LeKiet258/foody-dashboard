@@ -71,3 +71,20 @@
 .cuisines {
     display: none;
 }
+
+.main-filter-dasboard {
+    position: relative;
+}
+
+.main-filter-form-dashboard {
+    position: absolute;
+    top: 0;
+}
+
+.main-filter-config {
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+    justify-content: space-around;
+    align-items: center;
+}
