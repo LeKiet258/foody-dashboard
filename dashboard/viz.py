@@ -258,8 +258,8 @@ def compare_review_type(vendor):
             zeroline=False,
         ),
         barmode='stack',
-        paper_bgcolor='rgb(248, 248, 255)',
-        plot_bgcolor='rgb(248, 248, 255)',
+        paper_bgcolor='rgb(255, 255, 255)',
+        plot_bgcolor='rgb(228, 235, 247)',
         margin=dict(l=120, r=10, t=140, b=80),
         showlegend=True,
     )

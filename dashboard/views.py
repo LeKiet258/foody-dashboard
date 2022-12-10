@@ -10,7 +10,6 @@ import pdb
 import ast
 import dateutil.parser as dparser
 import re
-
 from underthesea import word_tokenize
 
 data_hcm = pd.read_csv("data/data_merge.csv")
@@ -82,9 +81,8 @@ def home(request):
 
 	return render(request, 'smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
-def compare_2_vendors(request):
+def compare_2_vendors(request, res_id1=90018, res_id2=44868):
 	global data_hcm, menu, menu_dish
-	res_id1, res_id2 = 90018, 44868
 	vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (data_hcm['RestaurantId'] == res_id2)]
 	ret = {}
 
@@ -132,6 +130,7 @@ def dashboard(request, res_id):
 	ret['capacity'] = vendor['Capacity'].item()
 	ret['servicefee'] = "{:,}".format(int(vendor['service_fee'].item()))
 	ret['minshipfee'] = "{:,}".format(int(vendor['minimun_shiping_fee'].item()))
+	ret['img'] = vendor['PagePic'].item()
 	ret['coupons'] = coupons
 	
 	# review & seeding pie charts

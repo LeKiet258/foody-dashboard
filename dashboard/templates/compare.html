@@ -1,19 +1,48 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
-  </head>
 
-  <body style="background-color:rgb(238, 227, 227);">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+</head>
 
-    {% autoescape off %}
-      {{ review_type }}
-      {{ seeding }}
-      {{ user_score }}
-      {{ component_score }}
-    {% endautoescape %}
+<body>
+  <div class="main-dashboard" style="float: left; width: 56%;   position: absolute; margin: auto; top: 0; right: 0; left: 0;">
+    <h1>So sánh 2 quán ăn</h1>
+    <div style="float: left;">
+      <div class="card-block">
+        {% autoescape off %}
+        {{ review_type }}
+        {% endautoescape %}
+      </div>
+    </div>
+    <div style="float: left;padding-top: 15px; ">
+      <div class="card-block">
+        {% autoescape off %}
+        {{ seeding }}
+        {% endautoescape %}
+      </div>
+    </div>
 
-  </body>
+    <div style="float: left; padding-top: 10px;">
+      <div class="card-block">
+        {% autoescape off %}
+        {{ user_score }}
+        {% endautoescape %}
+      </div>
+    </div>
+
+    <div style="float: left; padding-top: 10px;">
+      <div class="card-block">
+        {% autoescape off %}
+        {{ component_score }}
+        {% endautoescape %}
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
 </html>
