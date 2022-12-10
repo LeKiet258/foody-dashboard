@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Vendor(models.Model):
     ReviewUrl = models.CharField(max_length=500, null=False)
+    OpenTime = models.CharField(max_length=500, null=True)
     RestaurantId = models.PositiveIntegerField(primary_key=True, editable=False)
     Name = models.CharField(max_length=100, null=True)
     Address = models.CharField(max_length=200, null=True)
@@ -55,4 +56,4 @@ class Vendor(models.Model):
     apply_order = models.TextField(null=True)
     all_reviews = models.TextField(null=True)
     seeding_pct = models.TextField(null=True)
-
+    PagePic = models.TextField(null=True)
