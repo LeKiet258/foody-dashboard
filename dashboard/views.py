@@ -30,6 +30,29 @@ def home(request):
 
 		res[r].min_price = int(res[r].min_price)
 		res[r].max_price = int(res[r].max_price)
+		if res[r].max_price != -1:
+			if res[r].min_price <= 999999:
+				nghin = int(res[r].min_price/1000)
+				res[r].min_price = str(nghin) + 'K'
+			else: #1 250 000
+				if res[r].min_price % 1000000 == 0:
+					trieu = int(res[r].min_price/1000000)
+				else:
+					trieu = (res[r].min_price/1000000)
+				res[r].min_price = str(trieu) + 'M'
+
+			if res[r].max_price <= 999999:
+				nghin = int(res[r].max_price/1000)
+				res[r].max_price = str(nghin) + 'K'
+			else: #1 250 000
+				if res[r].max_price % 1000000 == 0:
+					trieu = int(res[r].max_price/1000000)
+				else:
+					trieu = res[r].max_price/1000000
+
+				res[r].max_price = str(trieu) + 'M'
+
+
 		res[r].TotalViews = int(res[r].TotalViews)
 		if res[r].seeding_pct == '':
 			res[r].seeding_pct = 0
@@ -40,9 +63,7 @@ def home(request):
 				res[r].seeding_pct = int(res[r].seeding_pct.split('.')[1])*10
 			else:
 				res[r].seeding_pct = int(res[r].seeding_pct.split('.')[1])
-
-
-	
+		
 
 	paginator = Paginator(res, 25) # Show 25 res per page.
 
