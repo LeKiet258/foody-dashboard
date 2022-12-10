@@ -10,7 +10,8 @@
 </head>
 
 <body>
-    <div class="main-dashboard" style="float: left; width: 87%;   position: absolute; margin: auto; top: 0; right: 0; left: 0;">
+    <div class="main-dashboard"
+        style="float: left; width: 87%;   position: absolute; margin: auto; top: 0; right: 0; left: 0;">
         <div style="padding: 50px 10px 0px 10px;">
             <div class="card-block" style="background-color: #FFFFFF; float: left; padding: 20px">
                 <img src="{{ img }}" style="width: 573px; height: 330px;">
@@ -79,7 +80,7 @@
                                     <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
                                     <span class="coupon__tags">
                                         {% for c in coupons %}
-                                        <span class="coupon__tag" href="#{{ c.promo_code }}">
+                                        <span class="coupon__tag" href="#{{ c.promo_code }}" style = "display: inline-block;">
                                             Giảm {{ c.discount }} VND
                                         </span>
                                         {% endfor %}
@@ -242,4 +243,5 @@
         }
     </script>
 </body>
+
 </html>

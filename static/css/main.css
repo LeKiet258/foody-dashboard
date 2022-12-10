@@ -27,7 +27,7 @@ body {
     box-sizing: border-box;
     display: inline;
     padding: 0px 4px 0px 0px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .coupon__tag {
@@ -35,7 +35,7 @@ body {
     text-size-adjust: 100%;
     box-sizing: border-box;
     cursor: pointer;
-    padding: 6px 12px;
+    padding: 4px 8px;
     border: 1px solid rgb(13, 92, 182);
     border-radius: 4px;
     font-size: 13px;
