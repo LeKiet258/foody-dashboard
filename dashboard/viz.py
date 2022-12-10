@@ -349,18 +349,40 @@ def user_score_bar(vendor):
 
     user_score_df = pd.DataFrame.from_dict({'freq': visible_scores}).reset_index()
     user_score_df['index'] = user_score_df['index'].astype(str)
+    review_df['Body'] = review_df['Body'].apply(normalize_review)
+    review_df = review_df.drop_duplicates("Body")
+    # Mỗi điểm lấy 3 comment mới đây nhất làm đại diện
+    review_df = review_df.groupby('User_score').head(3).sort_values(['User_score', 'Date'], ascending=False)
+    review_df = review_df.sort_values('User_score')
+    hoverinfo_ls = []
+    for sc in review_df['User_score'].unique():
+        tmp = review_df.loc[review_df['User_score'] == sc, 'Body']
+        tmp = tmp.to_list()
+        for i in range(len(tmp)):
+            if len(tmp[i]) > 1500:
+                tmp[i] = tmp[i][:1500] + "..(còn nữa)"
+            tmp[i] = '<br>'.join(textwrap.wrap(tmp[i], 150))
+        hoverinfo_ls.append('<br><br>'.join(tmp))
 
-    fig = px.bar(user_score_df, x="index", y="freq", text_auto=True)
-    custom_width = 1230 #800
-    # if len(user_score.index) > 10:
-    #     custom_width = 1230
+    color=np.array(['#007bff'] * visible_scores.index.size)
+    color[visible_scores.index < 6]='#EB1A14'
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=user_score_df['index'],
+        y=user_score_df['freq'],
+        textposition='auto', textangle=0, texttemplate="%{y}",
+        marker_color=color,
+        customdata=hoverinfo_ls,
+        hovertemplate="%{customdata}<extra></extra>",
+    ))
 
     fig.update_layout(
-        width=custom_width, # default 700
-        paper_bgcolor='#FFFFFF',
+        showlegend=False,
+        hovermode='closest', # siết hover box vào nội bộ bên trong fig
+        width=1000,
         xaxis=dict(
-            type='category',
-            title=dict(text="Điểm")
+            title=dict(text="Điểm"),
         ), 
         yaxis=dict(
             showgrid=False,
@@ -377,7 +399,7 @@ def user_score_bar(vendor):
             'yanchor': 'top',
             'font': {'size': 23, 'family': 'Arial'}
         },
-        margin=dict(l=20, r=10) 
+        margin=dict(l=20, r=10, t=50, b=30),
     )
     return fig
 
