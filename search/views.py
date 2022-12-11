@@ -76,6 +76,6 @@ def filter(request):
                 else:
                     filterData[r].seeding_pct = int(filterData[r].seeding_pct.split('.')[1])
 
-        return render(request, 'foody_dashboard/smallfood.html', {'page_obj': filterData, 'cuisines': cuisines_list, 'districts': districts_list})
+        return render(request, 'smallfood.html', {'page_obj': filterData, 'cuisines': cuisines_list, 'districts': districts_list})
 
-    return render(request, 'foody_dashboard/smallfood.html', {'page_obj': filterData, 'cuisines': cuisines_list, 'districts': districts_list})
+    return render(request, 'smallfood.html', {'page_obj': filterData, 'cuisines': cuisines_list, 'districts': districts_list})
