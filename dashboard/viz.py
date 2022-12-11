@@ -77,7 +77,7 @@ def compare_user_score(vendor):
     user_score_df = pd.DataFrame.from_dict(tmp_dict).sort_values(by=['score'])
     scores = sorted(list(set(user_scores[0].index).union(set(user_scores[1].index))))      
     integers = list(set([int(score) for score in scores]))
-    intervals = list(chunks(integers, 2))
+    intervals = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
     
     tmp_dict = {'group': [], 'label': [], 'value': []}
     for score in scores:
