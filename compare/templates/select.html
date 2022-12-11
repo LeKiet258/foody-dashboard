@@ -35,7 +35,7 @@
 
             <div>
                 <div class="main-filter">
-                    <form class="form-inline" method="POST" action="/compare/">
+                    <form class="form-inline" method="POST" action="/select/">
                         {% csrf_token %}
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
                             name="search" value="">
@@ -85,7 +85,7 @@
 
 
                 <div style="max-height: 450px; overflow-y: auto;" class="table-container">
-                    <form action="" id="shop-selected-form">
+                    <form action="http://localhost:8000/compare/" id="shop-selected-form">
                         <table class="table bg-light">
                             <tbody>
                                 {% for i in page_obj %}
@@ -189,6 +189,13 @@
                 alert("Allowed only 2 shops selected");
             }
         });
+        $("#shop-selected-form").on("submit", function (e) {
+            if ($('input[type=checkbox]:checked').length < 2) {
+                e.preventDefault();
+                alert("Please select exactly 2 shops");
+            }
+        }); 
+
     </script>
 </body>
 

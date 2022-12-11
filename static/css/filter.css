@@ -45,7 +45,7 @@
 .filter {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 300px;
+    max-height: 300px;
     width: 450px;
     overflow-y: scroll;
     background-color: #fff;

@@ -16,7 +16,7 @@ while True:
         maxInt = int(maxInt/10)
 
 def run():
-    attributes = ['RestaurantId', 'Name', 'Address', 'District', 'City',
+    attributes = ['OpenTime', 'RestaurantId', 'Name', 'Address', 'District', 'City',
        'RestaurantStatus', 'Latitude', 'Longitude', 'TotalReviews',
        'nExcellentReviews', 'nGoodReviews', 'nAverageReviews', 'nBadReviews',
        'LocationScore', 'PriceScore', 'QualityScore', 'ServingScore',
@@ -27,7 +27,7 @@ def run():
        'min_charge', 'minimum_shiping_fee', 'is_foody_delivery', 'min_price',
        'max_price', 'min_order_amount', 'expired', 'promo_description',
        'promo_code', 'max_discount_value', 'max_usage_time', 'apply_order',
-       'Reviews', 'seeding_pct']
+       'Reviews', 'seeding_pct', 'PagePic']
 
     Vendor.objects.all().delete()
 
