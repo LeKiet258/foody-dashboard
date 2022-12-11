@@ -60,25 +60,23 @@ def compare_user_score(vendor):
         for single_rv in review:
             for k in review_dict.keys():
                 review_dict[k].append(single_rv[k])
+
         review_df = pd.DataFrame.from_dict(review_dict)
         review_df['User_score'] = review_df['User_score'].astype(float)
         review_df['is_returned'] = review_df['is_returned'].astype(bool)
         review_df = review_df[review_df['User_score'] != 0] # loại các review có đánh giá 0.0 vì đa fần là qc
         user_score = review_df['User_score'].value_counts()#.sort_index()
         user_scores.append(user_score)
-    
-    scores = list(set(user_scores[0].index).union(set(user_scores[1].index)))
-    res_names = [vendor.iloc[0,2], vendor.iloc[1,2]]
+    intervals = [[1, 2], [2,3], [3, 4], [4,5], [5, 6], [6,7], [7, 8], [8,9], [9, 10]]
+    scores = list(set(user_scores[0].index).union(set(user_scores[1].index)).union(set(np.arange(1,11))))
+    res_names = [vendor.iloc[0,3], vendor.iloc[1,3]]
     tmp_dict = {'score': scores, res_names[0]: [], res_names[1]: []}
     for score in scores:
         for i in range(2):
             freq = user_scores[i][score] if score in user_scores[i].index else 0
             tmp_dict[res_names[i]].append(freq)
+
     user_score_df = pd.DataFrame.from_dict(tmp_dict).sort_values(by=['score'])
-    scores = sorted(list(set(user_scores[0].index).union(set(user_scores[1].index))))      
-    integers = list(set([int(score) for score in scores]))
-    intervals = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
-    
     tmp_dict = {'group': [], 'label': [], 'value': []}
     for score in scores:
         for i in range(2):
@@ -102,7 +100,6 @@ def compare_user_score(vendor):
     # final process
     score_interval_df = score_interval_df.sort_values(by=['group'], kind='stable')
     score_interval_df['group'] = score_interval_df['group'].astype(str)
-    score_interval_df
 
     fig = px.bar(
         score_interval_df,
@@ -114,16 +111,23 @@ def compare_user_score(vendor):
         color_discrete_sequence=["#4472c4", "#ed7d31"],
     )
 
+    # add hovertemplate
+    for i in range(2):
+        fig.data[i]['hovertemplate'] = process_review_px(vendor['Reviews'].iloc[i])
+
     fig.update_layout(
-        width=1000,
+        # height=1000, #width=1200,
+        # plot_bgcolor="#F2D2BD",
         margin=dict(t=120), 
         yaxis2={"side": "right", "matches": None, "showticklabels": False},
         yaxis={"showticklabels": True, 'title': "Khoảng điểm"}, # tune this
-        xaxis={"autorange": "reversed", 'range': [0, score_interval_df['value'].max()], "title": {"text": ""}},
+        xaxis={"autorange": "reversed", 'range': [0, score_interval_df['value'].max()], 
+            "title": {"text": ""}},
         xaxis2={"matches": None, 'range': [0, score_interval_df['value'].max()], 'title': ''},
         showlegend=False,
         title = {
             'text': "<b>So sánh điểm của 2 quán ăn</b>",
+            # 'y':0.9,
             'x':0.5,
             'xanchor': 'center',
             'yanchor': 'top',
@@ -145,8 +149,10 @@ def compare_user_score(vendor):
         xanchor='left',
         xref="paper",
         yref="paper"))
-    
+
     return fig
+
+
 
 def compare_seeding(vendor):
     res_name1, res_name2 = vendor.iloc[0,3], vendor.iloc[1,3]
