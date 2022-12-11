@@ -23,9 +23,12 @@
 </head>
 
 <body>
+
   <!-- header + search bar -->
-  {% include 'navbar.html' %}
-  <div class="main-dashboard" style="float: left; width: 87%;   position: absolute; margin: auto; top: 0; right: 0; left: 0;">
+  <div style="max-width: 1450px; margin: auto; padding: 0.5rem 1rem;">
+    {% include 'navbar.html' %}
+  </div>
+  <div class="main-dashboard" style="float: left; width:87%;   position: absolute; margin: 2rem auto; top: 0; right: 0; left: 0;">
     <!-- avatar + thông tin cơ bản -->
     <div style="padding: 50px 10px 0px 10px;">
         <div class="card-block" style="background-color: #FFFFFF; float: left; padding: 20px">
@@ -91,42 +94,40 @@
                                 VND</p>
                         </td>
                         <td>
-                            <p>
-                                <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
-                                <span class="coupon__tags">
-                                    {% for c in coupons %}
-                                    <span class="coupon__tag" href="#{{ c.promo_code }}">
-                                        Giảm {{ c.discount }} VND
-                                    </span>
-                                    {% endfor %}
-                                    {% for c in coupons %}
-                                    <div id="{{ c.promo_code }}" class="modal">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <span class="close">×</span>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="coupon">
-                                                    <div class="container">
-                                                        <h3>Ưu đãi</h3>
+                            <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
+                            <span class="coupon__tags">
+                                {% for c in coupons %}
+                                <span class="coupon__tag" href="#{{ c.promo_code }}">
+                                    Giảm {{ c.discount }} VND
+                                </span>
+                                {% endfor %}
+                                {% for c in coupons %}
+                                <div id="{{ c.promo_code }}" class="modal">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="close">×</span>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="coupon">
+                                                <div class="container">
+                                                    <h3>Ưu đãi</h3>
+                                                </div>
+                                                <div class="container" style="background-color:white">
+                                                    <h2><b>{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
+                                                    <div style="padding-bottom: 5px;">{{ c.promo_description }}
                                                     </div>
-                                                    <div class="container" style="background-color:white">
-                                                        <h2><b>{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
-                                                        <div style="padding-bottom: 5px;">{{ c.promo_description }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="container">
-                                                        <p>Use Promo Code: <span class="promo"> {{ c.promo_code }}</span>
-                                                        </p>
-                                                        <p class="expire">Expires: {{ c.expired }}</p>
-                                                    </div>
+                                                </div>
+                                                <div class="container">
+                                                    <p>Use Promo Code: <span class="promo"> {{ c.promo_code }}</span>
+                                                    </p>
+                                                    <p class="expire">Expires: {{ c.expired }}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {% endfor %}
-                                </span>
-                            </p>
+                                </div>
+                                {% endfor %}
+                            </span>
                         </td>
                 </table>
             </div>
