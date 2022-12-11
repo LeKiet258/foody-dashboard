@@ -4,22 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static '/css/filter.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap">
-    <style>
-        div.relative {
-            position: relative;
-            left: 40px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/filter.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
 </head>
 
 <body style="background-color: #f4f7fa">
@@ -75,8 +66,7 @@
                                 <p><b><i class="fa-solid fa-circle-info"></i> Thông tin thêm: </b> {{ extrainfo }}</p>
                             </td>
                             <td>
-                                <p><b><i class="fa fa-camera"></i> Số hình ảnh của quán: </b> {{ totalpics |
-                                    floatformat:"0" }} ảnh/video
+                                <p><b><i class="fa fa-camera"></i> Số hình ảnh của quán: </b> {{ totalpics | floatformat:"0" }} ảnh/video
                                 </p>
                             </td>
                         </tr>
@@ -86,14 +76,12 @@
                                     lượt xem</p>
                             </td>
                             <td>
-                                <p><b><i class="fa-solid fa-bookmark"></i> Lượt lưu vào bộ sưu tập: </b> {{ totalsaves |
-                                    floatformat:"0"}} lượt lưu</p>
+                                <p><b><i class="fa-solid fa-bookmark"></i> Lượt lưu vào bộ sưu tập: </b> {{ totalsaves | floatformat:"0"}} lượt lưu</p>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p><b><i class="fa-solid fa-person"></i> Sức chứa cửa hàng: </b> {{ capacity |
-                                    floatformat:"0"}}
+                                <p><b><i class="fa-solid fa-person"></i> Sức chứa cửa hàng: </b> {{ capacity |  floatformat:"0"}}
                                     người lớn
                                 </p>
                             </td>
@@ -103,8 +91,7 @@
                             </td>
                         <tr>
                             <td>
-                                <p><b><i class="fa-solid fa-solid fa-tag  "></i> Phí ship tối thiểu: </b> {{ minshipfee
-                                    }}
+                                <p><b><i class="fa-solid fa-solid fa-tag  "></i> Phí ship tối thiểu: </b> {{ minshipfee }}
                                     VND</p>
                             </td>
                             <td>
@@ -118,7 +105,7 @@
                                     {% for c in coupons %}
                                     <div id="{{ c.promo_code }}" class="modal">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div>
                                                 <span class="close">×</span>
                                             </div>
                                             <div class="modal-body">
@@ -127,13 +114,12 @@
                                                         <h3>Ưu đãi</h3>
                                                     </div>
                                                     <div class="container" style="background-color:white">
-                                                        <h2><b>{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
+                                                        <h2><b style = "font-size: 21px;">{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
                                                         <div style="padding-bottom: 5px;">{{ c.promo_description }}
                                                         </div>
                                                     </div>
                                                     <div class="container">
-                                                        <p>Use Promo Code: <span class="promo"> {{ c.promo_code
-                                                                }}</span>
+                                                        <p>Use Promo Code: <span class="promo"> {{ c.promo_code }}</span>
                                                         </p>
                                                         <p class="expire">Expires: {{ c.expired }}</p>
                                                     </div>
