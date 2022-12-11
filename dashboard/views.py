@@ -77,7 +77,7 @@ def home(request):
 			page_number = request.GET.get('page')
 			page_obj = paginator.get_page(page_number)
 
-			return render(request, 'foody_dashboard/smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
+			return render(request, 'smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
 	return render(request, 'smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
