@@ -96,8 +96,7 @@ def compare_2_vendors(request, res_id1=90018, res_id2=44868):
             [res_id1, res_id2] = [90018, 44868]
 
     global data_hcm, menu, menu_dish
-    vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (
-        data_hcm['RestaurantId'] == res_id2)]
+    vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (data_hcm['RestaurantId'] == res_id2)]
     ret = {}
 
     # review type

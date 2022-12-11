@@ -75,8 +75,8 @@ def compare_user_score(vendor):
         for i in range(2):
             freq = user_scores[i][score] if score in user_scores[i].index else 0
             tmp_dict[res_names[i]].append(freq)
-
     user_score_df = pd.DataFrame.from_dict(tmp_dict).sort_values(by=['score'])
+
     tmp_dict = {'group': [], 'label': [], 'value': []}
     for score in scores:
         for i in range(2):
@@ -116,8 +116,8 @@ def compare_user_score(vendor):
         fig.data[i]['hovertemplate'] = process_review_px(vendor['Reviews'].iloc[i])
 
     fig.update_layout(
-        # height=1000, #width=1200,
-        # plot_bgcolor="#F2D2BD",
+        width=1000,
+        height=500,
         margin=dict(t=120), 
         yaxis2={"side": "right", "matches": None, "showticklabels": False},
         yaxis={"showticklabels": True, 'title': "Khoảng điểm"}, # tune this
@@ -127,11 +127,10 @@ def compare_user_score(vendor):
         showlegend=False,
         title = {
             'text': "<b>So sánh điểm của 2 quán ăn</b>",
-            # 'y':0.9,
             'x':0.5,
             'xanchor': 'center',
             'yanchor': 'top',
-            'font': {'size': 23, 'family': 'Arial'}
+            'font': {'size': 18, 'family': 'Arial'}
         },
     )
 
@@ -151,8 +150,6 @@ def compare_user_score(vendor):
         yref="paper"))
 
     return fig
-
-
 
 def compare_seeding(vendor):
     res_name1, res_name2 = vendor.iloc[0,3], vendor.iloc[1,3]
