@@ -35,18 +35,21 @@
                         <i class="fa fa-filter"></i>
                     </h5>
                     <div class="main-filter-form" id="filter-content">
-                        <form class="flex-column p-2 rounded" method="post" action="/filter/">
+                        <form class="flex-column p-2 rounded border border-info" method="post" action="/filter/">
                             {% csrf_token %}
                             <div class="flex-row-checkbox border-bottom p-3">
                                 <div class="flex-column-area">
-                                    <button type="button" onclick="showDistricts()" class="btn btn-primary area">Khu vực</button>
-                                    <button type="button" onclick="showCuisines()" class="btn btn-info food">Ẩm thực</button>
+                                    <button type="button" onclick="showDistricts()" class="btn btn-primary area">Khu
+                                        vực</button>
+                                    <button type="button" onclick="showCuisines()" class="btn btn-info food">Ẩm
+                                        thực</button>
                                 </div>
 
                                 <div class="filter p-3 rounded districts" id="districts-filter">
                                     {% for district in districts %}
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="districts" value="{{ district }}" id="{{ district }}">
+                                        <input class="form-check-input" type="checkbox" name="districts"
+                                            value="{{ district }}" id="{{ district }}">
                                         <label class="form-check-label" for="{{ district }}">
                                             {{ district }}
                                         </label>
@@ -57,7 +60,8 @@
                                 <div class="filter p-3 rounded cuisines" id="cuisines-filter">
                                     {% for cuisine in cuisines %}
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="cuisines" value="{{ cuisine }}" id="{{ cuisine }}">
+                                        <input class="form-check-input" type="checkbox" name="cuisines"
+                                            value="{{ cuisine }}" id="{{ cuisine }}">
                                         <label class="form-check-label" for="{{ cuisine }}">
                                             {{ cuisine }}
                                         </label>
@@ -68,7 +72,8 @@
 
                             <div class="flex-row-search-delete p-3">
                                 <button type="submit" class="btn btn-success search">Tìm kiếm</button>
-                                <button onclick="deleteFilter(this);" type="button" class="btn btn-danger delete">Xóa bộ lọc</button>
+                                <button onclick="deleteFilter(this);" type="button" class="btn btn-danger delete">Xóa bộ
+                                    lọc</button>
                             </div>
 
                         </form>
@@ -123,7 +128,8 @@
                                 onmouseout="this.style.backgroundColor=''">
                                 <th
                                     style="width: 500px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 500px;text-overflow: ellipsis;">
-                                    <a href="{% url 'dashboard' i.RestaurantId %}">{{i.Name}}</a></th>
+                                    <a href="{% url 'dashboard' i.RestaurantId %}">{{i.Name}}</a>
+                                </th>
                                 <td
                                     style="width: 180px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 180px;text-overflow: ellipsis;text-align: center;">
                                     {{i.District}}</td>
@@ -168,7 +174,7 @@
                                 <td
                                     style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis; padding-left: 20px;;text-align: center">
                                     {{i.TotalViews}}</td>
-                                
+
                                 {% if i.TotalReviews == '' %}
                                 <td
                                     style="width: 90px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;max-width: 90px;text-overflow: ellipsis;text-align: center;">
@@ -234,7 +240,7 @@
         }
 
         function deleteFilter(source) {
-         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
             for (var i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i] != source)
                     checkboxes[i].checked = source.checked;
