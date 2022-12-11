@@ -18,19 +18,7 @@
 <body>
     <div class="container" style="max-width: 1450px;">
         <!-- header + search bar -->
-        <div class="row">
-            <div class="col-sm">
-                <nav class="navbar navbar-light bg-beauty">
-                    <a class="navbar-brand" href="/" >SmallFood</a>
-                    <form class="form-inline" method="POST" action="/">
-                        {% csrf_token %}
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-                            name="search" value="">
-                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </nav>
-            </div>
-        </div>
+        {% include 'navbar.html' %}
 
         <div class="bg-main">
             <div class="table-info">

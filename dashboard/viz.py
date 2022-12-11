@@ -354,20 +354,22 @@ def user_score_bar(vendor):
     # Mỗi điểm lấy 3 comment mới đây nhất làm đại diện
     review_df = review_df.groupby('User_score').head(3).sort_values(['User_score', 'Date'], ascending=False)
     review_df = review_df.sort_values('User_score')
-    hoverinfo_ls = []
-    for sc in review_df['User_score'].unique():
-        tmp = review_df.loc[review_df['User_score'] == sc, 'Body']
-        tmp = tmp.to_list()
-        for i in range(len(tmp)):
-            if len(tmp[i]) > 1500:
-                tmp[i] = tmp[i][:1500] + "..(còn nữa)"
-            tmp[i] = '<br>'.join(textwrap.wrap(tmp[i], 150))
-        hoverinfo_ls.append('<br><br>'.join(tmp))
 
-    color=np.array(['#007bff'] * visible_scores.index.size)
-    color[visible_scores.index < 6]='#EB1A14'
+    scores = user_score_df['index'].astype(float).to_list()
+    hoverinfo_ls = [np.nan] * len(scores)
+    for j, sc in enumerate(scores):
+        tmp = review_df.loc[review_df['User_score'] == sc, 'Body']
+        if not tmp.empty:
+            tmp = tmp.to_list()
+            for i in range(len(tmp)):
+                if len(tmp[i]) > 1500:
+                    tmp[i] = tmp[i][:1500] + "..(còn nữa)"
+                tmp[i] = '<br>'.join(textwrap.wrap(tmp[i], 150))
+            hoverinfo_ls[j] = '<br><br>'.join(tmp)
 
     fig = go.Figure()
+    color=np.array(['#007bff'] * visible_scores.index.size)
+    color[visible_scores.index < 6]='#EB1A14'
     fig.add_trace(go.Bar(
         x=user_score_df['index'],
         y=user_score_df['freq'],
