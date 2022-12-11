@@ -4,43 +4,165 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap">
   <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
 </head>
 
 <body>
-  <div class="main-dashboard" style="float: left; width: 56%;   position: absolute; margin: auto; top: 0; right: 0; left: 0;">
-    <h1>So sánh 2 quán ăn</h1>
-    <div style="float: left;">
-      <div class="card-block">
+  <!-- header + search bar -->
+  <div style="max-width: 1450px; margin: auto; padding: 0.5rem 1rem;">
+    <div class="container" style="max-width: 1450px;">
+      <div class="row" style="color: #173048">
+        <div class="col-sm">
+            <nav class="navbar navbar-light bg-eauty">
+                <a class="navbar-brand" href="/?page=1">SmallFood</a>
+            </nav>
+        </div>
+      </div>
+  </div>
+    
+  <div class="main-dashboard"
+    style="float: left; width: 87%; position: absolute; margin: auto; top: 0; right: 0; left: 0;">
+
+    <div style = "padding-left: 275px;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 1</b>
+      <div style = "display: flex;">
+        {% for i in items %}
+        <div class="card-block" style="background-color: #FFFFFF; display:inline-block; margin: 13px;">
+          <div>
+            <h3 style="text-align: center;"> {{ i.name }} </h3>
+            <hr>
+          </div>
+          <ul>
+            <p><b>Lượt xem:</b> {{ i.totalviews | floatformat:"0"}} lượt xem </p>
+            <p><b>Số bình luận:</b> {{ i.totalreviews | floatformat:"0"}} bình luận </p>
+            <p><b>Hỗ trợ giao hàng:</b> {% if isdelivery %}
+              Có giao hàng
+              {% else %}
+              Không giao hàng
+              {% endif %} </p>
+            <p><b>Sức chứa:</b> {{ i.capacity | floatformat:"0"}} người lớn</p>
+            <p><b>Phụ phí tối thiểu:</b> {{ i.mincharge }} VND</p>
+            <p><b>Phí dịch vụ:</b> {{ i.servicefee }} VND </p>
+            <p><b>Khoảng giá:</b> {{ i.minprice }} VND - {{ i.maxprice }} VND </p>
+            <p>
+              <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
+              <span class="coupon__tags">
+                {% for c in i.coupons %}
+                <span class="coupon__tag" href="#{{ c.promo_code }}" style="display: inline-block;">
+                  Giảm {{ c.discount }} VND
+                </span>
+                {% endfor %}
+                {% for c in i.coupons %}
+                <div id="{{ c.promo_code }}" class="modal">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <span class="close">×</span>
+                    </div>
+                    <div class="modal-body">
+                      <div class="coupon">
+                        <div class="container">
+                          <h3>Ưu đãi</h3>
+                        </div>
+                        <div class="container" style="background-color:white">
+                          <h2><b>{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
+                          <div style="padding-bottom: 5px;">{{ c.promo_description }}
+                          </div>
+                        </div>
+                        <div class="container">
+                          <p>Use Promo Code: <span class="promo"> {{ c.promo_code }}</span>
+                          </p>
+                          <p class="expire">Expires: {{ c.expired }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </span>
+            </p>
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div style="padding: 10px; display:inline-block;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 2</b>
+      <div class="card-block" style="background-color: #FFFFFF; ">
         {% autoescape off %}
         {{ review_type }}
         {% endautoescape %}
       </div>
     </div>
-    <div style="float: left;padding-top: 15px; ">
-      <div class="card-block">
+
+    <div style="padding: 10px; display:inline-block;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 3</b>
+      <div class="card-block" style="background-color: #FFFFFF;">
         {% autoescape off %}
         {{ seeding }}
         {% endautoescape %}
       </div>
     </div>
 
-    <div style="float: left; padding-top: 10px;">
-      <div class="card-block">
+    <div style="padding: 10px; display:inline-block;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 4</b>
+      <div class="card-block" style="background-color: #FFFFFF;">
         {% autoescape off %}
         {{ user_score }}
         {% endautoescape %}
       </div>
     </div>
 
-    <div style="float: left; padding-top: 10px;">
-      <div class="card-block">
+    <div style="padding: 10px; display:inline-block;">
+      <b style="color: #2166ac; font-size:23px;">Comparision 5</b>
+      <div class="card-block" style="background-color: #FFFFFF;">
         {% autoescape off %}
         {{ component_score }}
         {% endautoescape %}
       </div>
     </div>
+
   </div>
+
+
+  <script>
+    // Get the button that opens the modal
+    var btn = document.querySelectorAll(".coupon__tag");
+
+    // All page modals
+    var modals = document.querySelectorAll('.modal');
+
+    // Get the <span> element that closes the modal
+    var spans = document.getElementsByClassName("close");
+
+    // When the user clicks the button, open the modal
+    for (var i = 0; i < btn.length; i++) {
+      btn[i].onclick = function (e) {
+        e.preventDefault();
+        modal = document.querySelector(e.target.getAttribute("href"));
+        modal.style.display = "block";
+      }
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    for (var i = 0; i < spans.length; i++) {
+      spans[i].onclick = function () {
+        for (var index in modals) {
+          if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+        }
+      }
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target.classList.contains('modal')) {
+        for (var index in modals) {
+          if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+        }
+      }
+    }
+  </script>
 
 
 </body>
