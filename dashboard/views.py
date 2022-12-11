@@ -109,7 +109,8 @@ def compare_2_vendors(request, res_id1 = 90018, res_id2 = 44868):
             'promo_code': ast.literal_eval(vendor.loc[vendor.RestaurantId == i, 'promo_code'].item())[j],
             'discount': "{:,}".format(int(ast.literal_eval(vendor.loc[vendor.RestaurantId == i, 'max_discount_value'].item())[j]))})
 
-        compare_items.append({'name': vendor.loc[vendor.RestaurantId == i, 'Name'].item(),
+        compare_items.append({'id': i,
+        'name': vendor.loc[vendor.RestaurantId == i, 'Name'].item(),
         'totalviews': vendor.loc[vendor.RestaurantId == i, 'TotalViews'].item(),
         'totalreviews': vendor.loc[vendor.RestaurantId == i, 'TotalReviews'].item(),
 		'isdelivery': vendor.loc[vendor.RestaurantId == i, 'IsDelivery'].item(),

@@ -117,7 +117,7 @@ def compare_user_score(vendor):
 
     fig.update_layout(
         width=750,
-        height=500,
+        height=450,
         margin=dict(t=120), 
         yaxis2={"side": "right", "matches": None, "showticklabels": False},
         yaxis={"showticklabels": True, 'title': "Khoảng điểm"}, # tune this
@@ -130,7 +130,7 @@ def compare_user_score(vendor):
             'x':0.5,
             'xanchor': 'center',
             'yanchor': 'top',
-            'font': {'size': 18, 'family': 'Arial'}
+            'font': {'size': 23, 'family': 'Arial'}
         },
     )
 

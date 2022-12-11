@@ -11,34 +11,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{% static '/css/filter.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
-
     <title>Small Food</title>
 </head>
 
 <body>
-    <div class="container" style="max-width: 1450px;">
-        <!-- header + search bar -->
-        <div class="row">
-            <div class="col-sm">
-                <nav class="navbar navbar-light bg-beauty">
-                    <a class="navbar-brand" href="/">SmallFood</a>
-                    <form class="form-inline" method="POST" action="/">
-                        {% csrf_token %}
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
-                            value="">
-                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </nav>
-            </div>
-        </div>
-        
-
-        <div class="bg-main">
-            <div class="table-info">
-                <div class="table-info-wrapper" style="text-align:center">
-                    <h3 class="table-info-text">Dữ liệu quán ăn TP.HCM</h3>
+    <div class="container" style="max-width: 100%;">
+        <div class="container" style="max-width: 1450px;">
+            <div class="row">
+                <div class="col-sm">
+                    <nav class="navbar navbar-light bg-beauty">
+                        <a class="navbar-brand" href="/">SmallFood</a>
+                        <form class="form-inline" method="POST" action="/">
+                            {% csrf_token %}
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                                name="search" value="">
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </nav>
                 </div>
             </div>
+        </div>
+
+        <div class="row" style="background-color: rgb(217, 65, 95); padding: 0px;align-items:center;justify-content: center;">
+            <div class="table-info-wrapper", style="align-items:center;justify-content: center;">
+                <h3 class="table-info-text" style="text-align:center;justify-content: center;">Dữ liệu quán ăn TP.HCM</h3>
+            </div>
+        </div>
 
             <div>
                 <!-- bộ lọc -->

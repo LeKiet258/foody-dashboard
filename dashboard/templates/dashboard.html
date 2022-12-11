@@ -13,29 +13,29 @@
     <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
 </head>
 
-<body style="background-color: #f4f7fa">
+<body style="background-color: #E8E8E8">
 
     <!-- header + search bar -->
-    <div style="max-width: 1450px; margin: auto; padding: 0.5rem 1rem;">
-      <div class="container" style="max-width: 1450px;">
-        <div class="row" style="color: #173048">
-            <div class="col-sm">
-                <nav class="navbar navbar-light bg-eauty">
-                    <a class="navbar-brand" href="/?page=1">SmallFood</a>
-                </nav>
-            </div>
-          </div>
-      </div>
-    
-    </div>
     <div class="main-dashboard"
         style="float: left; width:87%;   position: absolute; margin: 2rem auto; top: 0; right: 0; left: 0;">
         <!-- avatar + thông tin cơ bản -->
-        <div style="padding: 50px 10px 0px 10px;">
+        <div style="display:inline-block;">
+            <div class="container" style = "background-color: #173048;">
+                <div class="row">
+                    <div class="col-sm">
+                        <nav class="navbar navbar-light bg-eauty">
+                            <a class="navbar-brand" href="/?page=1">SmallFood</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 20px 10px 0px 10px;">
             <div class="card-block" style="background-color: #FFFFFF; float: left; padding: 20px">
                 <img src="{{ img }}" style="width: 573px; height: 330px;">
                 <div style="float:right; padding-left: 90px;">
-                    <h2 style = "inline-size: 800px;"><a href="https://www.foody.vn/{{ page }}">{{ name }} </a></h2>
+                    <h2 style="inline-size: 800px;"><a href="https://www.foody.vn/{{ page }}">{{ name }} </a></h2>
                     <table>
                         <tr>
                             <td>
@@ -81,7 +81,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <p><b><i class="fa-solid fa-person"></i> Sức chứa cửa hàng: </b> {{ capacity |  floatformat:"0"}}
+                                <p><b><i class="fa-solid fa-person"></i> Sức chứa cửa hàng: </b> {{ capacity | floatformat:"0"}}
                                     người lớn
                                 </p>
                             </td>
@@ -114,7 +114,8 @@
                                                         <h3>Ưu đãi</h3>
                                                     </div>
                                                     <div class="container" style="background-color:white">
-                                                        <h2><b style = "font-size: 21px;">{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
+                                                        <h2><b style="font-size: 21px;">{{ c.discount }} VND OFF YOUR
+                                                                PURCHASE</b></h2>
                                                         <div style="padding-bottom: 5px;">{{ c.promo_description }}
                                                         </div>
                                                     </div>
@@ -235,16 +236,16 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col"
-                                        style="width: 100px;max-width: 100px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                        style="width: 100px;max-width: 100px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis; border-radius: 0px;">
                                         Ngày</th>
                                     <th scope="col"
-                                        style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                        style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
                                         Username</th>
                                     <th scope="col"
-                                        style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                        style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
                                         Điểm</th>
                                     <th scope="col"
-                                        style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                        style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
                                         Nội dung đánh giá</th>
                                 </tr>
                             </thead>
