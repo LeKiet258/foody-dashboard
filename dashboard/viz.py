@@ -28,7 +28,7 @@ def compare_component_score(vendor):
     fig.add_trace(go.Scatterpolar(r=df2['score'], theta=df2['index'], fill='toself', hovertemplate="%{r}<extra></extra>", 
                                 name=vendor2['Name'].iloc[0]))
     fig.update_layout(
-        width=800,
+        width=750,
         showlegend=True,
         legend = dict(itemclick='toggleothers'), # click legend nào thì chỉ legend đó visible
         title = {
@@ -60,23 +60,25 @@ def compare_user_score(vendor):
         for single_rv in review:
             for k in review_dict.keys():
                 review_dict[k].append(single_rv[k])
-
         review_df = pd.DataFrame.from_dict(review_dict)
         review_df['User_score'] = review_df['User_score'].astype(float)
         review_df['is_returned'] = review_df['is_returned'].astype(bool)
         review_df = review_df[review_df['User_score'] != 0] # loại các review có đánh giá 0.0 vì đa fần là qc
         user_score = review_df['User_score'].value_counts()#.sort_index()
         user_scores.append(user_score)
-    intervals = [[1, 2], [2,3], [3, 4], [4,5], [5, 6], [6,7], [7, 8], [8,9], [9, 10]]
-    scores = list(set(user_scores[0].index).union(set(user_scores[1].index)).union(set(np.arange(1,11))))
-    res_names = [vendor.iloc[0,3], vendor.iloc[1,3]]
+    
+    scores = list(set(user_scores[0].index).union(set(user_scores[1].index)))
+    res_names = [vendor.iloc[0,2], vendor.iloc[1,2]]
     tmp_dict = {'score': scores, res_names[0]: [], res_names[1]: []}
     for score in scores:
         for i in range(2):
             freq = user_scores[i][score] if score in user_scores[i].index else 0
             tmp_dict[res_names[i]].append(freq)
     user_score_df = pd.DataFrame.from_dict(tmp_dict).sort_values(by=['score'])
-
+    scores = sorted(list(set(user_scores[0].index).union(set(user_scores[1].index))))      
+    integers = list(set([int(score) for score in scores]))
+    intervals = list(chunks(integers, 2))
+    
     tmp_dict = {'group': [], 'label': [], 'value': []}
     for score in scores:
         for i in range(2):
@@ -100,6 +102,7 @@ def compare_user_score(vendor):
     # final process
     score_interval_df = score_interval_df.sort_values(by=['group'], kind='stable')
     score_interval_df['group'] = score_interval_df['group'].astype(str)
+    score_interval_df
 
     fig = px.bar(
         score_interval_df,
@@ -111,18 +114,12 @@ def compare_user_score(vendor):
         color_discrete_sequence=["#4472c4", "#ed7d31"],
     )
 
-    # add hovertemplate
-    for i in range(2):
-        fig.data[i]['hovertemplate'] = process_review_px(vendor['Reviews'].iloc[i])
-
     fig.update_layout(
-        width=1000,
-        height=500,
+        width=750,
         margin=dict(t=120), 
         yaxis2={"side": "right", "matches": None, "showticklabels": False},
         yaxis={"showticklabels": True, 'title': "Khoảng điểm"}, # tune this
-        xaxis={"autorange": "reversed", 'range': [0, score_interval_df['value'].max()], 
-            "title": {"text": ""}},
+        xaxis={"autorange": "reversed", 'range': [0, score_interval_df['value'].max()], "title": {"text": ""}},
         xaxis2={"matches": None, 'range': [0, score_interval_df['value'].max()], 'title': ''},
         showlegend=False,
         title = {
@@ -130,7 +127,7 @@ def compare_user_score(vendor):
             'x':0.5,
             'xanchor': 'center',
             'yanchor': 'top',
-            'font': {'size': 18, 'family': 'Arial'}
+            'font': {'size': 23, 'family': 'Arial'}
         },
     )
 
@@ -148,7 +145,7 @@ def compare_user_score(vendor):
         xanchor='left',
         xref="paper",
         yref="paper"))
-
+    
     return fig
 
 def compare_seeding(vendor):
@@ -204,7 +201,7 @@ def compare_seeding(vendor):
                                 font=dict(family='Arial', size=14,
                                         color='rgb(67, 67, 67)'),
                                 showarrow=False, align='right'))
-    fig.update_layout(annotations=annotations, width=1000)
+    fig.update_layout(annotations=annotations, width=750)
     
     return fig
 
@@ -281,7 +278,7 @@ def compare_review_type(vendor):
 
     fig.update_layout(
         annotations=annotations,
-        width=1000,
+        width=750,
         title = {
             'text': "<b>So sánh tỷ lệ từng loại đánh giá</b>",
             'y':0.9,

@@ -87,7 +87,7 @@ def home(request):
     return render(request, 'smallfood.html', {'page_obj': page_obj, 'cuisines': cuisines_list, 'districts': districts_list})
 
 
-def compare_2_vendors(request, res_id1=90018, res_id2=44868):
+def compare_2_vendors(request, res_id1 = 90018, res_id2 = 44868):
     if request.method == 'GET':
         try:
             shops = request.GET.getlist('shop-selected')
@@ -96,8 +96,32 @@ def compare_2_vendors(request, res_id1=90018, res_id2=44868):
             [res_id1, res_id2] = [90018, 44868]
 
     global data_hcm, menu, menu_dish
-    vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (data_hcm['RestaurantId'] == res_id2)]
+    vendor = data_hcm.loc[(data_hcm['RestaurantId'] == res_id1) | (
+        data_hcm['RestaurantId'] == res_id2)]
     ret = {}
+    compare_items = []
+
+    for i in [res_id1, res_id2]:
+        coupons = []
+        for j in range(len(ast.literal_eval(vendor.loc[vendor.RestaurantId == i, 'expired'].item()))):
+            coupons.append({'expired': ast.literal_eval(vendor.loc[vendor.RestaurantId == i, 'expired'].item())[j],
+            'promo_description': ast.literal_eval(vendor.loc[vendor.RestaurantId == i, 'promo_description'].item())[j],
+            'promo_code': ast.literal_eval(vendor.loc[vendor.RestaurantId == i, 'promo_code'].item())[j],
+            'discount': "{:,}".format(int(ast.literal_eval(vendor.loc[vendor.RestaurantId == i, 'max_discount_value'].item())[j]))})
+
+        compare_items.append({'name': vendor.loc[vendor.RestaurantId == i, 'Name'].item(),
+        'totalviews': vendor.loc[vendor.RestaurantId == i, 'TotalViews'].item(),
+        'totalreviews': vendor.loc[vendor.RestaurantId == i, 'TotalReviews'].item(),
+		'isdelivery': vendor.loc[vendor.RestaurantId == i, 'IsDelivery'].item(),
+		'minshipfee': vendor.loc[vendor.RestaurantId == i, 'minimun_shiping_fee'].item(),
+		'capacity': vendor.loc[vendor.RestaurantId == i, 'Capacity'].item(),
+		'mincharge': "{:,}".format(int(vendor.loc[vendor.RestaurantId == i, 'min_charge'].item())),
+		'servicefee': "{:,}".format(int(vendor.loc[vendor.RestaurantId == i, 'service_fee'].item())),
+		'minprice': "{:,}".format(int(vendor.loc[vendor.RestaurantId == i, 'min_price'].item())),
+		'maxprice': "{:,}".format(int(vendor.loc[vendor.RestaurantId == i, 'max_price'].item())),
+        'coupons': coupons})
+
+    ret['items'] = compare_items
 
     # review type
     fig = compare_review_type(vendor)
