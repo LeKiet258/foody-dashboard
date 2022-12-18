@@ -62,7 +62,7 @@
                 {% for c in i.coupons %}
                 <div id="{{ c.promo_code }}" class="modal">
                   <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style = "border-bottom:#FFFFFF; padding: 5px 10px;">
                       <span class="close">×</span>
                     </div>
                     <div class="modal-body">
@@ -71,7 +71,7 @@
                           <h3>Ưu đãi</h3>
                         </div>
                         <div class="container" style="background-color:white">
-                          <h2><b>{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
+                          <h2><b style="font-size: 21px;">{{ c.discount }} VND OFF YOUR PURCHASE</b></h2>
                           <div style="padding-bottom: 5px;">{{ c.promo_description }}
                           </div>
                         </div>

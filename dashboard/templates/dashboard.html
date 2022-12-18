@@ -94,11 +94,11 @@
                                 <p><b><i class="fa-solid fa-solid fa-tag  "></i> Phí ship tối thiểu: </b> {{ minshipfee }}
                                     VND</p>
                             </td>
-                            <td>
+                            <td style="width:100px">
                                 <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
                                 <span class="coupon__tags">
                                     {% for c in coupons %}
-                                    <span class="coupon__tag" href="#{{ c.promo_code }}">
+                                    <span class="coupon__tag" href="#{{ c.promo_code }}" style = "display: inline-block; padding: 5px 10px;">
                                         Giảm {{ c.discount }} VND
                                     </span>
                                     {% endfor %}
