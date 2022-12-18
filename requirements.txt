@@ -1,0 +1,8 @@
+beautifulsoup4==4.11.1
+Django==4.1.4
+numpy==1.23.5
+pandas==1.5.2
+plotly==5.11.0
+python_dateutil==2.8.2
+underthesea==1.4.0
+django-extensions==3.2.1
