@@ -34,6 +34,7 @@ python3 manage.py runserver
 
 ## Note: 
 Get all data from this [link](https://drive.google.com/drive/folders/1Mq4WZxsjxWxAfFDm83nCudfiAZHLvo07)
+
 Recommend using python under 3.9 (tested with 3.8.10)
 
 ## Features
