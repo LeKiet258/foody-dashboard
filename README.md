@@ -1,0 +1,45 @@
+# foody-dashboard
+Demo cho học phần Ứng dụng phân tích dữ liệu thông minh - 19_21
+
+
+## Setup Python Environment
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install package virtualenv.
+
+```bash
+pip install virtualenv
+```
+
+After install virtualenv, cd to foody-dashboard folder and create environment name venv
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Activate the Virtual Environment
+
+```bash
+source venv/bin/activate
+```
+
+Install requirement package
+
+```bash
+pip install -r requirement.txt
+```
+
+## Run
+```bash
+python3 manage.py runserver
+```
+
+## Features
+- Main page
+- Show detail about one shop
+- Compare 2 shop
+
+
+## License
+
+Free Software <3
