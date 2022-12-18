@@ -13,8 +13,6 @@ After install virtualenv, cd to foody-dashboard folder and create environment na
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
 ```
 
 Activate the Virtual Environment
