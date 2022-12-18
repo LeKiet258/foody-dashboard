@@ -34,6 +34,9 @@ pip install -r requirement.txt
 python3 manage.py runserver
 ```
 
+## Note: 
+Get all data from this [link](https://drive.google.com/drive/folders/1Mq4WZxsjxWxAfFDm83nCudfiAZHLvo07)
+
 ## Features
 - Main page
 - Show detail about one shop
