@@ -16,292 +16,330 @@
 <body style="background-color: #E8E8E8">
 
     <!-- header + search bar -->
-    <div class="main-dashboard"
-        style="float: left; width:87%;   position: absolute; margin: 2rem auto; top: 0; right: 0; left: 0;">
+    <div class="main-dashboard">
         <!-- avatar + thông tin cơ bản -->
-        <div style="display:inline-block;">
-            <div class="container" style = "background-color: #173048;">
-                <div class="row">
-                    <div class="col-sm">
-                        <nav class="navbar navbar-light bg-eauty">
-                            <a class="navbar-brand" href="/?page=1">SmallFood</a>
-                        </nav>
+        <table style = "margin:10px; ">
+            <tr>
+                <td>
+                    <div style="display:inline-block;">
+                        <div class="container" style="background-color: #173048;">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <nav class="navbar navbar-light bg-eauty">
+                                        <a class="navbar-brand" href="/?page=1">SmallFood</a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </td>
+            </tr>
+        </table>
 
-        <div style="padding: 20px 10px 0px 10px;">
-            <div class="card-block" style="background-color: #FFFFFF; float: left; padding: 20px">
-                <img src="{{ img }}" style="width: 573px; height: 330px;">
-                <div style="float:right; padding-left: 90px;">
-                    <h2 style="inline-size: 800px;"><a href="https://www.foody.vn/{{ page }}">{{ name }} </a></h2>
-                    <table>
-                        <tr>
-                            <td>
-                                <p><b><i class="fa-solid fa-location-pin"></i> Địa chỉ: </b> {{ address }}</p>
-                            </td>
-                            <td>
-                                <p><b><i class="fa-solid fa-clock"></i> Giờ mở cửa: </b> {{ opentime }} </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>
-                                    <b><i class="fa-solid fa-truck-fast"></i> Hỗ trợ giao hàng: </b>
-                                    {% if isdelivery %}
-                                    Có giao hàng
-                                    {% else %}
-                                    Không giao hàng
-                                    {% endif %}
-                                </p>
-                            </td>
-                            <td>
-                                <p><b><i class="fa-solid fa-solid fa-tag"></i> Phụ phí tối thiểu: </b> {{ mincharge }}
-                                    VND </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p><b><i class="fa-solid fa-circle-info"></i> Thông tin thêm: </b> {{ extrainfo }}</p>
-                            </td>
-                            <td>
-                                <p><b><i class="fa fa-camera"></i> Số hình ảnh của quán: </b> {{ totalpics | floatformat:"0" }} ảnh/video
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p><b><i class="fa-regular fa-eye"></i> Lượt xem: </b> {{ totalviews | floatformat:"0"}}
-                                    lượt xem</p>
-                            </td>
-                            <td>
-                                <p><b><i class="fa-solid fa-bookmark"></i> Lượt lưu vào bộ sưu tập: </b> {{ totalsaves | floatformat:"0"}} lượt lưu</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p><b><i class="fa-solid fa-person"></i> Sức chứa cửa hàng: </b> {{ capacity | floatformat:"0"}}
-                                    người lớn
-                                </p>
-                            </td>
-                            <td>
-                                <p><b><i class="fa-solid fa-solid fa-tag"></i> Phí dịch vụ: </b> {{ servicefee }} VND
-                                </p>
-                            </td>
-                        <tr>
-                            <td>
-                                <p><b><i class="fa-solid fa-solid fa-tag  "></i> Phí ship tối thiểu: </b> {{ minshipfee }}
-                                    VND</p>
-                            </td>
-                            <td style="width:100px">
-                                <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
-                                <span class="coupon__tags">
-                                    {% for c in coupons %}
-                                    <span class="coupon__tag" href="#{{ c.promo_code }}" style = "display: inline-block; padding: 5px 10px;">
-                                        Giảm {{ c.discount }} VND
-                                    </span>
-                                    {% endfor %}
-                                    {% for c in coupons %}
-                                    <div id="{{ c.promo_code }}" class="modal">
-                                        <div class="modal-content">
-                                            <div>
-                                                <span class="close">×</span>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="coupon">
-                                                    <div class="container">
-                                                        <h3>Ưu đãi</h3>
+        <table style = "margin:10px; margin-left: auto; margin-right: auto;">
+            <tr>
+                <td>
+                    <img src="{{ img }}" style="width: 573px; height: 330px;">
+                </td>
+                <td>
+                    <div style="padding-left: 20px;">
+                        <div class="card-block" style="background-color: #FFFFFF; padding: 20px;">
+                            <h2 style="inline-size: 800px;"><a href="https://www.foody.vn/{{ page }}">{{ name }} </a>
+                            </h2>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p><b><i class="fa-solid fa-location-pin"></i> Địa chỉ: </b> {{ address }}</p>
+                                    </td>
+                                    <td>
+                                        <p><b><i class="fa-solid fa-clock"></i> Giờ mở cửa: </b> {{ opentime }} </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <b><i class="fa-solid fa-truck-fast"></i> Hỗ trợ giao hàng: </b>
+                                            {% if isdelivery %}
+                                            Có giao hàng
+                                            {% else %}
+                                            Không giao hàng
+                                            {% endif %}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p><b><i class="fa-solid fa-solid fa-tag"></i> Phụ phí tối thiểu: </b> 
+                                            {{ mincharge }}
+                                            VND </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p><b><i class="fa-solid fa-circle-info"></i> Thông tin thêm: </b> {{ extrainfo }}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p><b><i class="fa fa-camera"></i> Số hình ảnh của quán: </b> {{ totalpics | floatformat:"0" }} ảnh/video
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p><b><i class="fa-regular fa-eye"></i> Lượt xem: </b> {{ totalviews |floatformat:"0"}}
+                                            lượt xem</p>
+                                    </td>
+                                    <td>
+                                        <p><b><i class="fa-solid fa-bookmark"></i> Lượt lưu vào bộ sưu tập: </b> {{ totalsaves | floatformat:"0"}} lượt lưu</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p><b><i class="fa-solid fa-person"></i> Sức chứa cửa hàng: </b> {{ capacity   |floatformat:"0"}}
+                                            người lớn
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p><b><i class="fa-solid fa-solid fa-tag"></i> Phí dịch vụ: </b> {{ servicefee   }}
+                                            VND
+                                        </p>
+                                    </td>
+                                <tr>
+                                    <td>
+                                        <p><b><i class="fa-solid fa-solid fa-tag  "></i> Phí ship tối thiểu: </b> {{ minshipfee }}
+                                            VND</p>
+                                    </td>
+                                    <td style="width:100px">
+                                        <b><i class="fa fa-gift"></i> Mã khuyến mãi: </b>
+                                        <span class="coupon__tags">
+                                            {% for c in coupons %}
+                                            <span class="coupon__tag" href="#{{ c.promo_code }}"
+                                                style="display: inline-block; padding: 5px 10px;">
+                                                Giảm {{ c.discount }} VND
+                                            </span>
+                                            {% endfor %}
+                                            {% for c in coupons %}
+                                            <div id="{{ c.promo_code }}" class="modal">
+                                                <div class="modal-content">
+                                                    <div>
+                                                        <span class="close">×</span>
                                                     </div>
-                                                    <div class="container" style="background-color:white">
-                                                        <h2><b style="font-size: 21px;">{{ c.discount }} VND OFF YOUR
-                                                                PURCHASE</b></h2>
-                                                        <div style="padding-bottom: 5px;">{{ c.promo_description }}
+                                                    <div class="modal-body">
+                                                        <div class="coupon">
+                                                            <div class="container">
+                                                                <h3>Ưu đãi</h3>
+                                                            </div>
+                                                            <div class="container" style="background-color:white">
+                                                                <h2><b style="font-size: 21px;">{{ c.discount }} VND OFF
+                                                                        YOUR
+                                                                        PURCHASE</b></h2>
+                                                                <div style="padding-bottom: 5px;">{{ c.promo_description   }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="container">
+                                                                <p>Use Promo Code: <span class="promo"> {{ c.promo_code }}</span>
+                                                                </p>
+                                                                <p class="expire">Expires: {{ c.expired }}</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="container">
-                                                        <p>Use Promo Code: <span class="promo"> {{ c.promo_code }}</span>
-                                                        </p>
-                                                        <p class="expire">Expires: {{ c.expired }}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </span>
-                            </td>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- menu -->
-        <div style="padding-top: 15px; float: left;">
-            <div class="card-block" style="float: right;">
-                {% autoescape off %}
-                {{ menu }}
-                {% endautoescape %}
-            </div>
-        </div>
-
-        <!-- review_seeding: 2 pies -->
-        <div style="padding-top: 15px; float: right;">
-            <div class="card-block">
-                {% autoescape off %}
-                {{ review_seeding }}
-                {% endautoescape %}
-            </div>
-        </div>
-
-
-        <!-- bảng display review -->
-        <div style="float: left; padding-top: 10px;">
-            <div class="card-block">
-                <div class="container" style="width: 1040px; background-color: #FFFFFF;">
-                    <!-- bộ lọc -->
-                    <div class="main-filter main-filter-dasboard">
-                        <h5 class="main-filter-config" onclick="showFilter()">
-                            <div href="#">Bộ lọc</div>
-                            <i class="fa fa-filter"></i>
-                        </h5>
-                        <div class="main-filter-form main-filter-form-dasboard" id="filter-content">
-                            <form class="flex-column p-2 rounded border border-info" method="post"
-                                id="filter-form-review">
-                                {% csrf_token %}
-                                <div class="flex-row-checkbox border-bottom p-3">
-                                    <div class="flex-column-area">
-                                        <button type="button" onclick="showDistricts()"
-                                            class="btn btn-primary area">Điểm số</button>
-                                        <button type="button" onclick="showCuisines()" class="btn btn-info food">Thời
-                                            gian</button>
-                                    </div>
-
-                                    <div class="filter p-3 rounded districts" id="districts-filter">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="rate" value="Xuất sắc"
-                                                id="xuat-sac">
-                                            <label class="form-check-label" for="xuat-sac">
-                                                Xuất sắc
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="rate" value="Tốt"
-                                                id="tot">
-                                            <label class="form-check-label" for="tot">
-                                                Tốt
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="rate"
-                                                value="Trung bình" id="trung-binh">
-                                            <label class="form-check-label" for="trung-binh">
-                                                Trung bình
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="rate" value="Tệ"
-                                                id="te">
-                                            <label class="form-check-label" for="te">
-                                                Tệ
-                                            </label>
-                                        </div>
-
-                                    </div>
-                                    <div class="filter p-3 rounded cuisines" id="cuisines-filter">
-                                        {% for cuisine in cuisines %}
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="cuisines"
-                                                value="{{ cuisine }}" id="{{ cuisine }}">
-                                            <label class="form-check-label" for="{{ cuisine }}">
-                                                {{ cuisine }}
-                                            </label>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-
-                                <div class="flex-row-search-delete p-3">
-                                    <button type="submit" class="btn btn-success search">Tìm kiếm</button>
-                                    <button onclick="deleteFilter(this);" type="button"
-                                        class="btn btn-danger delete">Xóa bộ lọc</button>
-                                </div>
-                            </form>
+                                            {% endfor %}
+                                        </span>
+                                    </td>
+                            </table>
                         </div>
                     </div>
+                </td>
+            </tr>
+        </table>
 
-                    <!-- khung bảng -->
-                    <div class="table-container">
-                        <table class="table table-striped bg-light">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"
-                                        style="width: 100px;max-width: 100px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis; border-radius: 0px;">
-                                        Ngày</th>
-                                    <th scope="col"
-                                        style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
-                                        Username</th>
-                                    <th scope="col"
-                                        style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
-                                        Điểm</th>
-                                    <th scope="col"
-                                        style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
-                                        Nội dung đánh giá</th>
-                                </tr>
-                            </thead>
-                        </table>
+        <table style = "margin:10px; margin-left: auto; margin-right: auto;">
+            <tr>
+                <td>
+                    <div style="padding-top: 10px;">
+                        <div class="card-block">
+                            {% autoescape off %}
+                            {{ menu }}
+                            {% endautoescape %}
+                        </div>
                     </div>
+                </td>
 
-                    <!-- ND bảng -->
-                    <div style="height: 422px; overflow-y: auto;" class="table-container">
-                        <table class="table bg-light">
-                            <tbody>
-                                {% for i in review %}
-                                <tr onmouseover="this.style.backgroundColor='#8099c6'"
-                                    onmouseout="this.style.backgroundColor=''">
-                                    <th
-                                        style="width: 120px;max-width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                        {{i.Date}}
-                                    </th>
-                                    <td
-                                        style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                                        {{i.Usernames}}
-                                    </td>
-                                    <td
-                                        style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
-                                        {{i.User_score}}
-                                    </td>
-                                    <td
-                                        style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: left;">
-                                        {{i.Body}}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-
-                            </tbody>
-                        </table>
+                <td>
+                    <div style="padding-top: 10px;">
+                        <div class="card-block">
+                            {% autoescape off %}
+                            {{ review_seeding }}
+                            {% endautoescape %}
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </td>
+            </tr>
+        </table>
 
-        <!-- component_score -->
-        <div style="float: right; padding-top: 10px;">
-            <div class="card-block">
-                {% autoescape off %}
-                {{ component_score }}
-                {% endautoescape %}
-            </div>
-        </div>
+        <table style = "margin:10px; margin-left: auto; margin-right: auto;">
+            <tr>
+                <td>
+                    <!-- bảng display review -->
+                    <div style="float: left; padding-top: 10px;">
+                        <div class="card-block">
+                            <div class="container" style="width: 1040px; background-color: #FFFFFF;">
+                                <!-- bộ lọc -->
+                                <div class="main-filter main-filter-dasboard">
+                                    <h5 class="main-filter-config" onclick="showFilter()">
+                                        <div href="#">Bộ lọc</div>
+                                        <i class="fa fa-filter"></i>
+                                    </h5>
+                                    <div class="main-filter-form main-filter-form-dasboard" id="filter-content">
+                                        <form class="flex-column p-2 rounded border border-info" method="post"
+                                            id="filter-form-review">
+                                            {% csrf_token %}
+                                            <div class="flex-row-checkbox border-bottom p-3">
+                                                <div class="flex-column-area">
+                                                    <button type="button" onclick="showDistricts()"
+                                                        class="btn btn-primary area">Điểm số</button>
+                                                    <button type="button" onclick="showCuisines()"
+                                                        class="btn btn-info food">Thời
+                                                        gian</button>
+                                                </div>
+
+                                                <div class="filter p-3 rounded districts" id="districts-filter">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="rate"
+                                                            value="Xuất sắc" id="xuat-sac">
+                                                        <label class="form-check-label" for="xuat-sac">
+                                                            Xuất sắc
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="rate"
+                                                            value="Tốt" id="tot">
+                                                        <label class="form-check-label" for="tot">
+                                                            Tốt
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="rate"
+                                                            value="Trung bình" id="trung-binh">
+                                                        <label class="form-check-label" for="trung-binh">
+                                                            Trung bình
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="rate"
+                                                            value="Tệ" id="te">
+                                                        <label class="form-check-label" for="te">
+                                                            Tệ
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="filter p-3 rounded cuisines" id="cuisines-filter">
+                                                    {% for cuisine in cuisines %}
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="cuisines"
+                                                            value="{{ cuisine }}" id="{{ cuisine }}">
+                                                        <label class="form-check-label" for="{{ cuisine }}">
+                                                            {{ cuisine }}
+                                                        </label>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+
+                                            <div class="flex-row-search-delete p-3">
+                                                <button type="submit" class="btn btn-success search">Tìm
+                                                    kiếm</button>
+                                                <button onclick="deleteFilter(this);" type="button"
+                                                    class="btn btn-danger delete">Xóa bộ lọc</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- khung bảng -->
+                                <div class="table-container">
+                                    <table class="table table-striped bg-light">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col"
+                                                    style="width: 100px;max-width: 100px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis; border-radius: 0px;">
+                                                    Ngày</th>
+                                                <th scope="col"
+                                                    style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
+                                                    Username</th>
+                                                <th scope="col"
+                                                    style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
+                                                    Điểm</th>
+                                                <th scope="col"
+                                                    style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center; border-radius: 0px;">
+                                                    Nội dung đánh giá</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                                <!-- ND bảng -->
+                                <div style="height: 422px; overflow-y: auto;" class="table-container">
+                                    <table class="table bg-light">
+                                        <tbody>
+                                            {% for i in review %}
+                                            <tr onmouseover="this.style.backgroundColor='#8099c6'"
+                                                onmouseout="this.style.backgroundColor=''">
+                                                <th
+                                                    style="width: 120px;max-width: 120px;line-height: 20px;vertical-align: middle;overflow: hidden;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                    {{i.Date}}
+                                                </th>
+                                                <td
+                                                    style="width: 150px;max-width: 150px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                                    {{i.Usernames}}
+                                                </td>
+                                                <td
+                                                    style="width: 50px;max-width: 50px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: center;">
+                                                    {{i.User_score}}
+                                                </td>
+                                                <td
+                                                    style="width: 600px;max-width: 600px;line-height: 20px; overflow:hidden;vertical-align: middle;text-align: left;">
+                                                    {{i.Body}}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+                <!-- component_score -->
+                <td>
+                    <div style="padding-top: 10px;">
+                        <div class="card-block">
+                            {% autoescape off %}
+                            {{ component_score }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
         <!-- user_score -->
-        <div style="float: left; padding-top: 10px;">
-            <div class="card-block">
-                {% autoescape off %}
-                {{ user_score }}
-                {% endautoescape %}
-            </div>
-        </div>
+        <table style = "margin:10px; margin-left: auto; margin-right: auto;">
+            <tr>
+                <td>
+                    <div style="padding-top: 10px;">
+                        <div class="card-block">
+                            {% autoescape off %}
+                            {{ user_score }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
