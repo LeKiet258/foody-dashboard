@@ -29,6 +29,8 @@ pip install -r requirement.txt
 
 ## Run
 ```bash
+python3 manage.py makemigrations dashboard
+python manage.py migrate dashboard
 python3 manage.py runserver
 ```
 
